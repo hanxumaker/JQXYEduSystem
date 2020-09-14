@@ -1,10 +1,15 @@
 package com.jxd.service.impl;
 
+import com.jxd.dao.IAnalytesDao;
 import com.jxd.dao.IManagerDao;
+import com.jxd.model.Analytes;
+import com.jxd.model.Dept;
 import com.jxd.model.Manager;
 import com.jxd.service.IManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Description TODO
@@ -18,5 +23,15 @@ public class ManagerServiceImpl implements IManagerService {
     @Override
     public Manager getManagerByMname(String uname) {
         return managerDao.getManagerByMname(uname);
+    }
+
+    @Override
+    public List<Analytes> getAnalytes(Integer state) {
+        return managerDao.getAnalytes(state);
+    }
+
+    @Override
+    public Dept getDnameByDeptno(Integer deptno) {
+        return managerDao.getDnameByDeptno(deptno);
     }
 }

@@ -2,32 +2,4 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.IDeptDao">
-    <select id="getDetailDeptByDeptno" resultMap="DeptMap">
-        select s.sname sname,s.sex sex,s.address address,s.phone phone,s.school school,s.state state
-        from student s right join dept d
-        on s.deptno=d.deptno
-        where d.deptno=#{deptno}
-    </select>
-    <resultMap id="DeptMap" type="Dept">
-        <!--id:数据库表中的主键-->
-        <!--column：数据库表中的字段-->
-        <!--property：实体类中的属性名-->
-        <id column="deptno" property="deptno"></id>
-        <!--result:除主键外的其他字段-->
-        <result column="dname" property="dname"></result>
-        <!--collection:处理一对多映射关系-->
-        <!--property:实体类中的属性名
-        JavaType：实体类中属性的类型
-        ofType：集合的泛型
-        -->
-        <collection property="list" javaType="List" ofType="Student">
-            <id column="sid" property="sid"></id>
-            <result column="sname" property="sname"></result>
-            <result column="sex" property="sex"></result>
-            <result column="address" property="address"></result>
-            <result column="phone" property="phone"></result>
-            <result column="school" property="school"></result>
-            <result column="state" property="state"></result>
-        </collection>
-    </resultMap>
 </mapper>

@@ -13,10 +13,4 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DeptServiceImpl implements IDeptService {
-    @Autowired
-    IDeptDao deptDao;
-    @Override
-    public Dept getDetailDeptByDeptno(Integer deptno) {
-        return deptDao.getDetailDeptByDeptno(deptno);
-    }
 }

@@ -5,4 +5,22 @@
 <select id="getManagerByMname" resultType="Manager">
     select id,mname,deptno from manager where mname=#{mname}
 </select>
+    <!-- /**
+     * 查询出所有正在使用的评分项
+     *
+     * @return 返回查到的评分项
+     */
+    List<Analytes> getAnalytes();-->
+    <select id="getAnalytes" resultType="Analytes">
+        select id,aname from analytes where state=#{state}
+    </select>
+    <!-- /**
+     * 根据部门编号查找对应的部门名称
+      * @param deptno 要查找的部门编号
+     * @return 查找到的部门
+     */
+    Dept getDnameByDeptno(Integer deptno);-->
+    <select id="getDnameByDeptno" resultType="Dept">
+        select deptno,dname from dept where deptno=#{deptno}
+    </select>
 </mapper>

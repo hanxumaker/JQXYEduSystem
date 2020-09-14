@@ -10,7 +10,6 @@ import java.util.List;
 public class Dept {
     private Integer deptno;
     private String dname;
-    private List<Student> list;//一个部门下的学生集合
 
     public Dept() {
     }
@@ -18,14 +17,6 @@ public class Dept {
     public Dept(Integer deptno, String dname) {
         this.deptno = deptno;
         this.dname = dname;
-    }
-
-    public List<Student> getList() {
-        return list;
-    }
-
-    public void setList(List<Student> list) {
-        this.list = list;
     }
 
     public Dept(String dname) {

@@ -90,6 +90,7 @@ action的值对应地是url-pattern-->
         <div class="layui-form-item" align="center">
             <button class="layui-btn layui-btn-radius layui-btn-normal  layui-btn-sm" type="submit" id="sub">登录</button>
         </div>
+        <div id="msg" style="color: red">${msg}</div>
     </form>
 </div>
 <script>
@@ -100,10 +101,15 @@ action的值对应地是url-pattern-->
         $ = layui.jquery;
         $("#sub").click(function () {
             if ($("#uname").val() == "" || $("#password").val() == "") {
-                layer.msg("信息填写不完整,无法登录", {icon: 2, time: 3000});
+                alert("信息填写不完整,无法登录");
             }
         });
-        layer.msg("${msg}", {icon: 2, time: 2000})
+        $("#uname").focus(function () {
+            $("#msg").html("");
+        });
+        $("#password").focus(function () {
+            $("#msg").html("");
+        })
     });
 </script>
 </body>
