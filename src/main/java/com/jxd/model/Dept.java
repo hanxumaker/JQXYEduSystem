@@ -1,5 +1,7 @@
 package com.jxd.model;
 
+import java.util.List;
+
 /**
  * @Description TODO
  * @Author wangdiandian

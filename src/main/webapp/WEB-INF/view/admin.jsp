@@ -5,11 +5,23 @@
   User: Administrator
   Date: 2020/9/12
   Time: 11:34
+<%--
+  Created by IntelliJ IDEA.
+  User: lenovo
+  Date: 2020/9/13
+  Time: 10:09
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
     <title>管理员页面</title>
     <link href="../../static/layui/css/layui.css" rel="stylesheet">
     <script src="../../static/layui/layui.js"></script>

@@ -17,7 +17,10 @@ import java.util.List;
 public class UserServiceImpl implements IUserService {
     @Autowired
     IUserDao userDao;
-
+    @Override
+    public User searchUser(User user) {
+        return userDao.searchUser(user);
+    }
     @Override
     public boolean addUser(User user) {
         return userDao.addUser(user);

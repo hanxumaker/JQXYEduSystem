@@ -6,31 +6,33 @@ package com.jxd.model;
  * @Date 2020/9/12 9:41
  */
 public class WorkEvaluate {
-    private Integer id;
-    private Integer sid;
-    private Integer mid;
-    private Integer year;
-    private Integer finalScore;
-    private String comment;
+   private Integer dateId;//评价时间
+    private Integer sid;//学生id
+    private Integer aid;//评价分项id
+    private String evaluatePerson;//评价人
+    private Integer evaluateScore;//分项评价分数
+    private Integer totalScore;//评价总分
+    private String evaluateContent;//综合评价
 
     public WorkEvaluate() {
     }
 
-    public WorkEvaluate(Integer id, Integer sid, Integer mid, Integer year, Integer finalScore, String comment) {
-        this.id = id;
+    public WorkEvaluate(Integer dateId, Integer sid, Integer aid, String evaluatePerson, Integer evaluateScore, Integer totalScore, String evaluateContent) {
+        this.dateId = dateId;
         this.sid = sid;
-        this.mid = mid;
-        this.year = year;
-        this.finalScore = finalScore;
-        this.comment = comment;
+        this.aid = aid;
+        this.evaluatePerson = evaluatePerson;
+        this.evaluateScore = evaluateScore;
+        this.totalScore = totalScore;
+        this.evaluateContent = evaluateContent;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getDateId() {
+        return dateId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setDateId(Integer dateId) {
+        this.dateId = dateId;
     }
 
     public Integer getSid() {
@@ -41,35 +43,43 @@ public class WorkEvaluate {
         this.sid = sid;
     }
 
-    public Integer getMid() {
-        return mid;
+    public Integer getAid() {
+        return aid;
     }
 
-    public void setMid(Integer mid) {
-        this.mid = mid;
+    public void setAid(Integer aid) {
+        this.aid = aid;
     }
 
-    public Integer getYear() {
-        return year;
+    public String getEvaluatePerson() {
+        return evaluatePerson;
     }
 
-    public void setYear(Integer year) {
-        this.year = year;
+    public void setEvaluatePerson(String evaluatePerson) {
+        this.evaluatePerson = evaluatePerson;
     }
 
-    public Integer getFinalScore() {
-        return finalScore;
+    public Integer getEvaluateScore() {
+        return evaluateScore;
     }
 
-    public void setFinalScore(Integer finalScore) {
-        this.finalScore = finalScore;
+    public void setEvaluateScore(Integer evaluateScore) {
+        this.evaluateScore = evaluateScore;
     }
 
-    public String getComment() {
-        return comment;
+    public Integer getTotalScore() {
+        return totalScore;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setTotalScore(Integer totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public String getEvaluateContent() {
+        return evaluateContent;
+    }
+
+    public void setEvaluateContent(String evaluateContent) {
+        this.evaluateContent = evaluateContent;
     }
 }
