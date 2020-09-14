@@ -11,4 +11,32 @@
     <delete id="delUser">
         delete from user where uname = #{uname}
     </delete>
+    <!--boolean editUser(String oldName ,String newName);-->
+    <update id="editUser">
+        update user set uname = #{new} where uname = #{old}
+    </update>
+
+    <!--List<User> getAllUsers-->
+    <select id="getAllUsers" resultType="User">
+        select id,uname,phonenum,role from user
+        <where>
+            <if test="uname != null and uname != ''">
+                uname like '%' #{uname} '%'
+            </if>
+        </where>
+        group by id desc
+        limit ${pageSize*(pageIndex-1)}, ${pageSize}
+    </select>
+
+    <select id="getAllUsers1" resultType="User">
+        select id,uname,phonenum,role from user
+        <where>
+            <if test="uname != null and uname != ''">
+                uname like '%' #{uname} '%'
+            </if>
+        </where>
+        group by id desc
+    </select>
+
+
 </mapper>
