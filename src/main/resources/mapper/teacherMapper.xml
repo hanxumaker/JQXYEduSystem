@@ -2,4 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.ITeacherDao">
+    <sql id="BaseSql">
+       select tid,tname,cid,state from teacher
+    </sql>
+
+    <!--List<Teacher> getAllTeachers-->
+    <select id="getAllTeachers1" resultType="Teacher">
+        <include refid="BaseSql"></include>
+        <where>
+            <if test="tname != null and tname != ''">
+                tname like '%' #{tname} '%'
+            </if>
+        </where>
+    </select>
+    <select id="getAllTeachers" resultType="Teacher">
+        <include refid="BaseSql"></include>
+        <where>
+            <if test="tname != null and tname != ''">
+                tname like '%' #{tname} '%'
+            </if>
+        </where>
+         group by tid desc
+        limit ${pageSize*(pageIndex-1)}, ${pageSize}
+    </select>
+
+    <!--boolean addTeacher(Teacher teacher);-->
+    <insert id="addTeacher">
+        insert into teacher(tname,state) values (#{tname},#{state})
+    </insert>
+    <!--boolean delTeacher(Teacher teacher);-->
+    <delete id="delTeacher">
+        delete from teacher where  tid = #{tid}
+    </delete>
+
 </mapper>
