@@ -31,23 +31,20 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="course.jsp" target="mFrame">课程管理</a>
+                    <a href="myStudent" target="mFrame">我的学生</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="student" target="mFrame">学生管理</a>
+                    <a href="updatePassword" target="mFrame">修改密码</a>
                 </li>
-                <li class="layui-nav-item"><a href="">教师管理</a></li>
-                <li class="layui-nav-item"><a href="">账号密码重置</a></li>
-                <li class="layui-nav-item"><a href="">修改密码</a></li>
             </ul>
         </div>
     </div>
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <div style="padding: 15px;"><iframe frameborder="1" class="layadmin-iframe"
+        <div style="padding: 15px;"><iframe class="layadmin-iframe"
                                             style="width: 100%; height:90%;"
-                                            name="mFrame" scrolling="false"></iframe></div>
+                                            name="mFrame" scrolling="false" src="myStudent"></iframe></div>
     </div>
 </div>
 <script>

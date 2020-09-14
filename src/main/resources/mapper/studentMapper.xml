@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.IStudentDao">
+    <sql id="BaseSql">
+     select sid,sname,sex,birthday,phone
+    </sql>
+    <!--int getCidByTeacher(String tname)-->
+    <select id="getCidByTeacher" resultType="int">
+      select cid from teacher where tname=#{tname}
+    </select>
+    <!--List<Student> getAllStudentByCid(Integer cid);-->
+    <select id="getAllStudentByCid" resultType="Student">
+        <include refid="BaseSql"></include>
+     from student where cid=#{cid}
+     <if test="sname !=null and sname !=''">
+         and sname like '%' #{sname} '%'
+     </if>
+    </select>
+    <!--List<Student> getSomeStudents(Integer count,Integer pageSize,String sname,Integer cid);-->
+    <select id="getSomeStudents" resultType="Student">
+        <include refid="BaseSql"></include>
+        from student where cid=#{cid}
+        <if test="sname !=null and sname !=''">
+            and sname like '%' #{sname} '%'
+        </if>
+        limit #{count},#{pageSize}
+    </select>
 </mapper>
