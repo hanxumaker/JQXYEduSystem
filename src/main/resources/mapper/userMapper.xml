@@ -11,4 +11,14 @@
     <delete id="delUser">
         delete from user where uname = #{uname}
     </delete>
+    <!--/**
+     * 根据输入的账号密码查找是否有该用户
+      * @param user 要查找的用户
+     * @return 查找到的用户
+     */
+    User searchUser(User user);-->
+    <select id="searchUser" resultType="User">
+        select userid,uname,password,role from user where
+        uname=#{uname} and password=#{password}
+    </select>
 </mapper>

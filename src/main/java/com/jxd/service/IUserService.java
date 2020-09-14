@@ -18,4 +18,10 @@ public interface IUserService {
      * @return
      */
     boolean delUser(User user);
+    /**
+     * 根据输入的账号密码查找是否有该用户
+      * @param user 要查找的用户
+     * @return 查找到的用户
+     */
+    User searchUser(User user);
 }
