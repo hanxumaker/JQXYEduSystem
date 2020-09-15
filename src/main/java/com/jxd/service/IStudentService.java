@@ -30,4 +30,29 @@ public interface IStudentService {
     */
     List<Student> getSomeStudents(Integer count,Integer pageSize,String sname,Integer cid);
 
+    /**
+     * 根据部门号查询这个部门的所有员工,对部门下的员工进行模糊查询
+      * @param deptno 部门编号
+     * @param sname 模糊查询的名字
+     * @return
+     */
+    List<Student> getStudentsByDeptno(Integer deptno,String sname);
+
+    /**
+     * 对员工进行模糊查询
+      * @param count 跳过几条数据
+     * @param pageSize 显示几条数据
+     * @param sname 进行模糊查询的名字
+     * @param deptno 部门编号
+     * @return 查到的学生
+     */
+    List<Student> getStudents(Integer count,Integer pageSize,String sname,Integer deptno);
+
+    /**
+     * 根据学生id查找学生
+      * @param sid 要查找的学生id
+     * @return
+     */
+    Student getStudentBySid(Integer sid);
+
 }

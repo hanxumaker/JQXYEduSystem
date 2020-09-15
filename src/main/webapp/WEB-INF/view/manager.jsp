@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>老师页面</title>
+    <title>经理页面</title>
     <link href="../../static/layui/css/layui.css" rel="stylesheet">
     <script src="../../static/layui/layui.js"></script>
 </head>
@@ -18,7 +18,7 @@
         <div class="layui-logo">金桥学员跟踪系统</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item">欢迎您
+            <li class="layui-nav-item">欢迎您${sessionScope.User.uname}
                 <img src="../../static/imgs/2.jpg" class="layui-nav-img">
 
             </li>
@@ -29,32 +29,28 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="studentScore" target="mFrame">学生成绩</a>
-                </li>
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="studentEvaluate" target="mFrame">学生评价</a>
-                </li>
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item">
-                    <a href="updatePassword" target="mFrame">修改密码</a>
+                    <a href="toGetStudentByDeptno" target="mFrame">部门员工</a>
                 </li>
+                <li class="layui-nav-item"><a href="">工作评价</a></li>
+                <li class="layui-nav-item"><a href="">修改密码</a></li>
             </ul>
         </div>
     </div>
 
-    <div class="layui-body">
+    <div class="layui-body" style="height:100%">
         <!-- 内容主体区域 -->
-        <div style="padding: 15px;"><iframe class="layadmin-iframe"
-                                            style="width: 100%; height:90%;"
-                                            name="mFrame" scrolling="false" src="myStudent"></iframe></div>
+        <div>
+            <iframe style="display: block;overflow: hidden" frameborder="0" class="layadmin-iframe"
+                    width="100%" height="100%" name="mFrame" scrolling="false"></iframe>
+        </div>
     </div>
 </div>
 <script>
     //JavaScript代码区域
-    layui.use('element', function(){
+    layui.use('element', function () {
         var element = layui.element;
-
     });
 </script>
 </body>

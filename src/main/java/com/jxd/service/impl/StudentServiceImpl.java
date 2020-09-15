@@ -31,4 +31,20 @@ public class StudentServiceImpl implements IStudentService {
     public List<Student> getSomeStudents(Integer count, Integer pageSize, String sname,Integer cid) {
         return studentDao.getSomeStudents(count,pageSize,sname,cid);
     }
+
+    @Override
+    public List<Student> getStudentsByDeptno(Integer deptno, String sname) {
+        return studentDao.getStudentsByDeptno(deptno,sname);
+    }
+
+    @Override
+    public List<Student> getStudents(Integer count, Integer pageSize, String sname, Integer deptno) {
+        return studentDao.getStudents(count,pageSize,sname,deptno);
+    }
+
+    @Override
+    public Student getStudentBySid(Integer sid) {
+        return studentDao.getStudentBySid(sid);
+    }
+
 }

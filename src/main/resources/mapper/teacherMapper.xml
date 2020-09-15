@@ -34,5 +34,8 @@
     <delete id="delTeacher">
         delete from teacher where  tid = #{tid}
     </delete>
-
+    <!--boolean editTea(Teacher teacher);-->
+    <update id="editTea">
+        update teacher set tname = #{tname} where tid = #{tid}
+    </update>
 </mapper>

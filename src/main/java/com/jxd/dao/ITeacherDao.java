@@ -36,4 +36,11 @@ public interface ITeacherDao {
      * @return 返回是否添加成功
      */
     boolean delTeacher(Teacher teacher);
+
+    /**
+     * 编辑一个老师的信息
+     * @param teacher
+     * @return 是否编辑成功
+     */
+    boolean editTea(Teacher teacher);
 }

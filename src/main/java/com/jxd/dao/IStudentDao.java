@@ -12,19 +12,47 @@ public interface IStudentDao {
      * @Date 2020/9/12 17:35
      */
     int getCidByTeacher(String tname);
+
     /**
-     * @Description 根据班级查询这个班下的所有学生,对本班的学生进行模糊查询
+     * @Description 根据班级查询这个班下的所有学生, 对本班的学生进行模糊查询
      * @Return list集合：查到的学生
      * @Date 2020/9/12 18:03
      */
-    List<Student> getAllStudentByCid(@Param("cid") Integer cid,@Param("sname") String sname);
+    List<Student> getAllStudentByCid(@Param("cid") Integer cid, @Param("sname") String sname);
+
     /**
+     * @param count: 跳过多少条数据;
+     *               pageSize: 每页显示几条数据
+     *               sname:模糊查询
      * @Description 对学生进行模糊，分页查询
-     * @param  count: 跳过多少条数据;
-     *        pageSize: 每页显示几条数据
-     *        sname:模糊查询
      * @Return
      * @Date 2020/9/13 9:53
      */
-    List<Student> getSomeStudents(@Param("count") Integer count, @Param("pageSize") Integer pageSize, @Param("sname") String sname,@Param("cid") Integer cid);
+    List<Student> getSomeStudents(@Param("count") Integer count, @Param("pageSize") Integer pageSize, @Param("sname") String sname, @Param("cid") Integer cid);
+
+    /**
+     * 根据部门号查询这个部门的所有员工,对部门下的员工进行模糊查询
+     *
+     * @param deptno
+     * @param sname
+     * @return
+     */
+    List<Student> getStudentsByDeptno(@Param("deptno") Integer deptno, @Param("sname") String sname);
+
+    /**
+     * 对员工进行模糊分页查询
+     *
+     * @param count    跳过几条数据
+     * @param pageSize 显示几条数据
+     * @param sname    进行模糊查询的名字
+     * @param deptno   部门编号
+     * @return 查到的员工
+     */
+    List<Student> getStudents(@Param("count") Integer count, @Param("pageSize") Integer pageSize, @Param("sname") String sname, @Param("deptno") Integer deptno);
+    /**
+     * 根据学生id查找学生
+     * @param sid 要查找的学生id
+     * @return 查找到的学生
+     */
+    Student getStudentBySid(Integer sid);
 }

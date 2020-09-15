@@ -1,5 +1,6 @@
 package com.jxd.dao;
 
-public interface IDeptDao {
+import com.jxd.model.Dept;
 
+public interface IDeptDao {
 }

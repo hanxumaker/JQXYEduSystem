@@ -5,6 +5,9 @@
     <sql id="BaseSql">
      select sid,sname,sex,birthday,phone,state
     </sql>
+    <sql id="BaseSql1">
+     select sid,sname,sex,nation,birthday,address,married,phone,idcard,school,major,photo,state
+    </sql>
     <!--int getCidByTeacher(String tname)-->
     <select id="getCidByTeacher" resultType="int">
       select cid from teacher where tname=#{tname}
@@ -12,10 +15,10 @@
     <!--List<Student> getAllStudentByCid(Integer cid);-->
     <select id="getAllStudentByCid" resultType="Student">
         <include refid="BaseSql"></include>
-     from student where cid=#{cid}
-     <if test="sname !=null and sname !=''">
-         and sname like '%' #{sname} '%'
-     </if>
+        from student where cid=#{cid}
+        <if test="sname !=null and sname !=''">
+            and sname like '%' #{sname} '%'
+        </if>
     </select>
     <!--List<Student> getSomeStudents(Integer count,Integer pageSize,String sname,Integer cid);-->
     <select id="getSomeStudents" resultType="Student">
@@ -25,5 +28,38 @@
             and sname like '%' #{sname} '%'
         </if>
         limit #{count},#{pageSize}
+    </select>
+    <!-- /**
+     * 根据部门号查询这个部门的所有员工,对部门下的员工进行模糊查询
+     *
+     * @param deptno
+     * @param sname
+     * @return
+     */-->
+    <select id="getStudentsByDeptno" resultType="Student">
+        <include refid="BaseSql1"></include>
+        from student where deptno=#{deptno}
+        <if test="sname !=null and sname !=''">
+            and sname like '%' #{sname} '%'
+        </if>
+    </select>
+    <!--List<Student> getStudents-->
+    <select id="getStudents" resultType="Student">
+        <include refid="BaseSql1"></include>
+        from student where deptno=#{deptno}
+        <if test="sname !=null and sname !=''">
+            and sname like '%' #{sname} '%'
+        </if>
+        limit #{count},#{pageSize}
+    </select>
+    <!--/**
+     * 根据学生id查找学生
+      * @param sid 要查找的学生id
+     * @return 查找到的学生
+     */
+    Student getStudentBySid(Integer sid);-->
+    <select id="getStudentBySid" resultType="Student">
+        <include refid="BaseSql1"></include> from student
+        where sid=#{sid}
     </select>
 </mapper>

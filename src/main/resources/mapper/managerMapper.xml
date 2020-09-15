@@ -2,4 +2,61 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.IManagerDao">
+    <sql id="BaseSql">
+       select id,mname,deptno from manager
+    </sql>
+
+    <!--List<Teacher> getAllTeachers-->
+    <select id="getAllTeachers1" resultType="Manager">
+        <include refid="BaseSql"></include>
+        <where>
+            <if test="tname != null and tname != ''">
+                mname like '%' #{tname} '%'
+            </if>
+        </where>
+    </select>
+    <select id="getAllTeachers" resultType="Manager">
+        <include refid="BaseSql"></include>
+        <where>
+            <if test="tname != null and tname != ''">
+                mname like '%' #{tname} '%'
+            </if>
+        </where>
+        group by id desc
+        limit ${pageSize*(pageIndex-1)}, ${pageSize}
+    </select>
+
+    <!--boolean addTeacher(Teacher teacher);-->
+    <insert id="addTeacher">
+        insert into manager(mname) values (#{mname})
+    </insert>
+    <!--boolean delTeacher(Teacher teacher);-->
+    <delete id="delTeacher">
+        delete from manager where  id = #{id}
+    </delete>
+    <!--boolean editTea(Teacher teacher);-->
+    <update id="editTea">
+        update manager set mname = #{mname} where id = #{id}
+    </update>
+<select id="getManagerByMname" resultType="Manager">
+    select id,mname,deptno from manager where mname=#{mname}
+</select>
+    <!-- /**
+     * 查询出所有正在使用的评分项
+     *
+     * @return 返回查到的评分项
+     */
+    List<Analytes> getAnalytes();-->
+    <select id="getAnalytes" resultType="Analytes">
+        select id,aname from analytes where state=#{state}
+    </select>
+    <!-- /**
+     * 根据部门编号查找对应的部门名称
+      * @param deptno 要查找的部门编号
+     * @return 查找到的部门
+     */
+    Dept getDnameByDeptno(Integer deptno);-->
+    <select id="getDnameByDeptno" resultType="Dept">
+        select deptno,dname from dept where deptno=#{deptno}
+    </select>
 </mapper>

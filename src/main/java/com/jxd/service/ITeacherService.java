@@ -35,4 +35,10 @@ public interface ITeacherService {
   */
  boolean delTeacher(Teacher teacher);
 
+ /**
+  * 编辑一个老师的信息
+  * @param teacher
+  * @return 是否编辑成功
+  */
+ boolean editTea(Teacher teacher);
 }
