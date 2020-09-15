@@ -8,14 +8,18 @@ package com.jxd.model;
 public class Course {
     private Integer courseId;//课程id
     private String courseName;//课程名称
-    private Integer state;//课程状态
+    private String state;//课程状态
 
     public Course() {
     }
 
-    public Course(String courseName, Integer state) {
+    public Course(String courseName, String state) {
         this.courseName = courseName;
         this.state = state;
+    }
+
+    public Course(String courseName) {
+        this.courseName = courseName;
     }
 
     public Integer getCourseId() {
@@ -34,11 +38,11 @@ public class Course {
         this.courseName = courseName;
     }
 
-    public Integer getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(Integer state) {
+    public void setState(String state) {
         this.state = state;
     }
 }

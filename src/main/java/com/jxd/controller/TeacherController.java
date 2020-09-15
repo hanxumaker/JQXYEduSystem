@@ -2,7 +2,6 @@ package com.jxd.controller;
 
 import com.jxd.model.Course;
 import com.jxd.model.Student;
-import com.jxd.service.IClassService;
 import com.jxd.service.ICourseService;
 import com.jxd.service.IStudentService;
 import net.sf.json.JSONArray;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,19 +28,22 @@ import java.util.List;
 public class TeacherController {
     @Autowired
     IStudentService studentService;
+
+    @Autowired
     ICourseService courseService;
 
     @RequestMapping("/teacher")
     public String teacher(HttpServletRequest request,Model model) {
         //String tname = request.getParameter("tname");
-        String tname = "hyh";
+        //String tname = "hyh";
+        String tname = "wmm";
         model.addAttribute("tname",tname);
         return "teacher";
     }
 
-    @RequestMapping("/myStudent")
-    public String myStudent() {
-        return "myStudent";
+    @RequestMapping("/studentScore")
+    public String studentScore() {
+        return "studentScore";
     }
 
     @RequestMapping(value = "/getAllStudent",produces = "text/html;charset=utf-8")
@@ -76,7 +79,7 @@ public class TeacherController {
     }
     @RequestMapping("/teacherScore")
     public String teacherScore(){
-        return "teacherScore";
+            return "teacherScore";
     }
 
     @RequestMapping(value = "/getTeacherScore",produces = "text/html;charset=utf-8")
@@ -84,7 +87,8 @@ public class TeacherController {
     public String getTeacherScore(HttpServletRequest request){
         HttpSession session = request.getSession();
         int cid = (int)session.getAttribute("cid");
-        List<Course> list = courseService.getAllCourseByCid(cid);
+        List<Course> list = new ArrayList<>();
+        list = courseService.getAllCourseByCid(cid);
         JSONArray jsonArray = JSONArray.fromObject(list);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code",0);
@@ -97,5 +101,29 @@ public class TeacherController {
     @RequestMapping("/updatePassword")
     public String updatePassword(){
         return "updatePassword";
+    }
+
+    //返回到学生成绩页面
+    @RequestMapping("/selectStudentScore")
+    public String selectStudentScore(){
+        return "selectStudentScore";
+    }
+
+    //返回学生评价页面
+    @RequestMapping("/studentEvaluate")
+    public String studentEvaluate(){
+        return "studentEvaluate";
+    }
+
+    //老师评价页面
+    @RequestMapping("/teacherEvaluate")
+    public String teacherEvaluate(){
+        return "teacherEvaluate";
+    }
+
+    //查看学生的成绩
+    @RequestMapping("/getStudentScore")
+    public String getStudentScore(){
+        return "getStudentScore";
     }
 }
