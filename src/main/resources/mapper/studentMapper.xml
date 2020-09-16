@@ -62,4 +62,45 @@
         <include refid="BaseSql1"></include> from student
         where sid=#{sid}
     </select>
+
+    <!--List<Student> getAllStudents(String sname,Integer cid, Integer page,Integer limit);-->
+    <select id="getAllStudents1" resultType="Student">
+        <include refid="BaseSql1"></include>
+        from student
+        <where>
+            <if test="sname !=null and sname !=''">
+                sname like '%' #{sname} '%'
+            </if>
+            <if test="cid != null and cid != ''">
+               and cid = #{cid}
+            </if>
+        </where>
+    </select>
+
+    <select id="getAllStudents" resultType="Student">
+        <include refid="BaseSql1"></include>
+        from student
+        <where>
+        <if test="sname !=null and sname !=''">
+             sname like '%' #{sname} '%'
+        </if>
+        <if test="cid != null and cid != ''">
+           and cid = #{cid}
+        </if>
+        </where>
+        group by sid desc
+        limit ${pageSize*(pageIndex-1)}, ${pageSize}
+    </select>
+
+    <!--boolean addStu(Student student)
+    增加学生-->
+    <insert id="addStu">
+        insert into student(sname,sex,nation,birthday,address,married,phone,idcard,school,major,photo,deptno,state,cid)
+        values (#{sname},#{sex},#{nation},#{birthday},#{address},#{married},#{phone},#{idCard},#{school},#{major},#{photo},#{deptno},#{state},#{cid})
+    </insert>
+
+    <!--boolean delStu(Integer sid)-->
+    <delete id="delStu">
+        delete from student where sid = #{sid}
+    </delete>
 </mapper>

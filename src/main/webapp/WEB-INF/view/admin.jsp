@@ -21,7 +21,6 @@
 
 </body>
 </html>
-
     <title>管理员页面</title>
     <link href="../../static/layui/css/layui.css" rel="stylesheet">
     <script src="../../static/layui/layui.js"></script>
@@ -48,9 +47,8 @@
                 <li class="layui-nav-item"><a href="teacherList" target="show">教师管理</a></li>
                 <li class="layui-nav-item"><a href="managerList" target="show">经理管理</a></li>
                 <li class="layui-nav-item"><a href="classList" target="show">班级管理</a></li>
-                <li class="layui-nav-item"><a href="deptList" target="show">部门管理</a></li>
                 <li class="layui-nav-item"><a href="courseList" target="show">课程管理</a></li>
-                <li class="layui-nav-item"><a href="analytesList " target="show">评分项管理</a></li>
+                <li class="layui-nav-item"><a href="analytesList" target="show">评分项管理</a></li>
             </ul>
         </div>
     </div>

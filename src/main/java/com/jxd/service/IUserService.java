@@ -50,4 +50,11 @@ public interface IUserService {
      * @return 返回一个列表
      */
     List<User> getAllUsers1(String uname);
+
+    /**
+     * 根据用户的id，重置密码
+     * @param id
+     * @return
+     */
+    boolean resetPwd(Integer id);
 }

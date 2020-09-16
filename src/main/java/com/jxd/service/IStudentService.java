@@ -55,4 +55,35 @@ public interface IStudentService {
      */
     Student getStudentBySid(Integer sid);
 
+    /**
+     * 得到全部的学生
+     * @param sname
+     * @param cid
+     * @param page
+     * @param limit
+     * @return
+     */
+    List<Student> getAllStudents(String sname,Integer cid, Integer page,Integer limit);
+
+    /**
+     * 得到全部的学生
+     * @param sname
+     * @param cid
+     * @return
+     */
+    List<Student> getAllStudents1(String sname,Integer cid);
+
+    /**
+     * 增加一个学生
+     * @param student
+     * @return
+     */
+    boolean addStu(Student student);
+
+    /**
+     * 删除一个学生
+     * @param sid
+     * @return
+     */
+    boolean delStu(Integer sid);
 }

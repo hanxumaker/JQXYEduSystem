@@ -46,14 +46,21 @@
         </div>
     </div>
 </script>
+
+<script type="text/html" id="toolbarDemo1">
+    <div class="layui-btn-container layui-input-inline">
+        <button class="layui-btn layui-btn-sm" lay-event="reset">重置密码</button>
+    </div>
+</script>
 <script>
     layui.use(['table', 'layer'], function () {
         var table = layui.table;
+        var $ = layui.jquery;
         //第一个实例
         table.render({
             elem: '#demo'
             , toolbar: '#toolbarDemo' //添加工具栏
-            , width: 800
+            , width: 1000
             , url: '/getAllUsers' //数据接口
             , page: true//开启分页
             , limit: 5//每页显示几条数据
@@ -74,8 +81,64 @@
                         }
                     }
                 }
+                , {field: 'tool', title: '操作', width: 200, toolbar: '#toolbarDemo1'}
             ]]
         });
+        //监听事件 监听lay-filter为test的员工工具栏
+
+        table.on('toolbar(test)', function (obj) {
+
+            switch (obj.event) {
+                case 'query':
+                    var filter = $("#filter").val();
+                    table.reload("demo",{//demo对应的是table的id
+                        //where对应的是过滤条件
+                        where:{uname:filter},
+                        page:{
+                            curr:1
+                        }
+                    });
+                    break;
+
+            }
+
+        });
+
+
+        //行内操作实现
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            var layer = layui.layer;
+            var $ = layui.jquery;
+            switch(obj.event) {
+                case 'reset':
+                    layer.confirm('确定要重置密码吗？', '重置', function () {
+                        var id = data.id;
+                            $.ajax({
+                                url: "resetUser",
+                                type: "post",
+                                data: {
+                                    id: id
+                                },
+                                success: function (data) {
+                                    layer.msg(data);
+                                    //重新加载表格
+                                    table.reload("demo", function () {
+                                        url:"getAllUsers"
+                                    })
+                                },
+                                error: function () {
+                                    layer.msg("执行失败")
+                                }
+                            })
+
+
+                    });
+                    break;
+            }
+        });
+
+
     });
 </script>
 

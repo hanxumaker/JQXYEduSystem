@@ -49,4 +49,9 @@
         select userid,uname,password,role from user where
         uname=#{uname} and password=#{password}
     </select>
+
+    <!-- boolean resetPwd(Integer id)-->
+    <update id="resetPwd">
+        update user set password = '888888' where id = #{id}
+    </update>
 </mapper>

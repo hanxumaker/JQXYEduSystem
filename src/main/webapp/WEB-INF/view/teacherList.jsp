@@ -35,9 +35,9 @@
         <div class="layui-btn-container layui-input-inline">
             <button class="layui-btn layui-btn-sm" lay-event="query">查询</button>
             <button class="layui-btn layui-btn-sm" lay-event="add">添加老师</button>
-<%--
-            <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
---%>
+            <%--
+                        <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+            --%>
         </div>
     </div>
 </script>
@@ -75,7 +75,7 @@
                             return "休息"
                         }
                     }
-                    }
+                }
                 , {field: 'tool', title: '操作', width: 200, toolbar: '#toolbarDemo1'}
             ]]
         });
@@ -191,6 +191,7 @@
             parent.location.reload();//刷新父页面
         }
     });
+
 </script>
 
 </body>

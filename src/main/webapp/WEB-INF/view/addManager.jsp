@@ -56,6 +56,18 @@
                 </div>
 
                 <div class="layui-form-item">
+                    <label class="layui-form-label">部门</label>
+                    <div class="layui-input-block">
+                        <select name="deptno" lay-verify="required" id="deptno">
+                            <option value=""></option>
+                            <option value="2">研发中心</option>
+                            <option value="3">技术部</option>
+                            <option value="4">人力资源部</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
                     <div class="layui-input-block" align="left">
                         <button type="button" class="layui-btn" id="add"  lay-filter="formDemo">提交</button>
                     </div>
@@ -88,7 +100,8 @@
                         type:"post",
                         data:{
                             name:$("#name").val(),
-                            password:$("#password").val()
+                            password:$("#password").val(),
+                            deptno:$("#deptno").val()
                         },
                         success:function (data) {
                             layer.msg(data);
@@ -105,10 +118,10 @@
 
         })
 
-        var closeAdd = function () {
-            parent.location.reload();//刷新父页面
-        }
     });
+    function closeAdd() {
+        parent.location.reload();//刷新父页面
+    }
 </script>
 </body>
 </html>

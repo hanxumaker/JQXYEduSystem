@@ -47,8 +47,7 @@ public class ManagerServiceImpl implements IManagerService {
     public boolean editTea(Manager manager) {
         return managerDao.editTea(manager);
     }
-    @Autowired
-    IManagerDao managerDao;
+
     @Override
     public Manager getManagerByMname(String uname) {
         return managerDao.getManagerByMname(uname);

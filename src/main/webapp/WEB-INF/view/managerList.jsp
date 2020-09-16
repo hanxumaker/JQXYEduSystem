@@ -75,14 +75,16 @@
                 , {field: 'id', title: '经理编号', width: 150, sort: true, hide: true}
                 , {type: 'numbers', title: '序号', width: 200}
                 , {field: 'mname', title: '经理姓名', width: 200}
-                , {field: 'deptno', title: '所属部门', width: 150}
                 , {
-                    field: 'state', title: '', width: 200, hide: true,
+                    field: 'deptno', title: '所属部门', width: 150,
                     templet: function (data) {
-                        if (data.state == 0) {
-                            return "授课中"
-                        } else {
-                            return "休息"
+                        switch (data.deptno) {
+                            case 2 :
+                                return "研发中心";
+                            case 3 :
+                                return "技术部";
+                            case 4 :
+                                return "人力资源部";
                         }
                     }
                 }
@@ -110,7 +112,7 @@
                         title: '添加经理',
                         shadeClose: true, //点击遮罩关闭弹框
                         content: 'addManager',
-                        area: ['800px', '400px'],
+                        area: ['600px', '450px'],
                         end: function () {
                             //刷新当前页面
                             $(".layui-laypage-btn").click();

@@ -65,9 +65,6 @@
         var layer = layui.layer;
         $ = layui.jquery;
 
-        var closeAdd = function () {
-            parent.location.reload();//刷新父页面
-        }
         //给数据添加验证信息
         form.verify({
             pwd: [/^[\S]{3,12}$/, "密码必须3到12位，且不能出现空格"]
@@ -104,6 +101,9 @@
         })
 
     });
+    function closeAdd() {
+        parent.location.reload();//刷新父页面
+    }
 </script>
 </body>
 </html>

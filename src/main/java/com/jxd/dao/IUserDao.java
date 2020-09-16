@@ -51,4 +51,11 @@ public interface IUserDao {
      * @return 返回一个列表
      */
     List<User> getAllUsers1(@Param("uname") String uname);
+
+    /**
+     * 根据用户的id，重置密码
+     * @param id
+     * @return
+     */
+    boolean resetPwd(@Param("id") Integer id);
 }

@@ -14,7 +14,7 @@ import java.util.List;
 public interface IManagerService {
 
     /**
-     * 获取老师列表
+     * 获取经理列表
      * @param tname 模糊查询
      * @param page
      * @param limit
@@ -23,14 +23,14 @@ public interface IManagerService {
     List<Manager> getAllTeachers(@Param("tname") String tname, @Param("pageIndex") Integer page, @Param("pageSize") Integer limit);
 
     /**
-     * 获取老师列表的长度
+     * 获取经理列表的长度
      * @param tname 模糊查询
      * @return 返回一个列表
      */
     List<Manager> getAllTeachers1(@Param("tname") String tname);
 
     /**
-     * 添加一个老师
+     * 添加一个经理
      * @param manager
      * @return 返回是否添加成功
      */

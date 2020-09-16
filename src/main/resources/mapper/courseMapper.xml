@@ -8,4 +8,30 @@
         where co.courseid
         in(select courseid from ctoc where cid=#{cid})
     </select>
+
+    <!--List<Course> getAllCourse()-->
+    <select id="getAllCourse" resultType="Course">
+        select courseId,courseName,state from course
+    </select>
+
+    <!--boolean addCou(Course course)-->
+
+    <insert id="addCou">
+        insert into course(coursename,state) values (#{courseName},#{state})
+    </insert>
+
+    <!-- boolean deleteCou(Integer id)-->
+    <delete id="deleteCou">
+        delete  from course where courseid = #{id}
+    </delete>
+
+    <!--boolean updateCou(Integer id);-->
+    <update id="updateCou">
+        update course set state = 1 where courseid = #{id}
+    </update>
+
+    <!--boolean updateAna1(Integer id);-->
+    <update id="updateCou1">
+        update course set state = 0 where courseid = #{id}
+    </update>
 </mapper>

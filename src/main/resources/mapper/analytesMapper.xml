@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.IAnalytesDao">
+    <!--List<Analytes> getAllAnalytes();-->
+    <select id="getAllAnalytes" resultType="Analytes">
+        select id,aname,state from analytes group by id desc
+    </select>
+
+    <!--boolean deleteAna(Integer id);-->
+    <delete id="deleteAna">
+        delete  from analytes where id = #{id}
+    </delete>
+
+    <!--boolean updateAna(Integer id);-->
+    <update id="updateAna">
+        update analytes set state = 1 where id = #{id}
+    </update>
+
+    <!--boolean updateAna1(Integer id);-->
+    <update id="updateAna1">
+        update analytes set state = 0 where id = #{id}
+    </update>
+
+    <!--boolean addAna(Analytes analytes);-->
+    <insert id="addAna">
+        insert  into analytes(aname,state) values (#{aname},#{state})
+    </insert>
 </mapper>

@@ -55,4 +55,37 @@ public interface IStudentDao {
      * @return 查找到的学生
      */
     Student getStudentBySid(Integer sid);
+
+    /**
+     * 得到全部的学生
+     * @param sname
+     * @param cid
+     * @param page
+     * @param limit
+     * @return
+     */
+    List<Student> getAllStudents(@Param("sname") String sname, @Param("cid") Integer cid, @Param("pageIndex") Integer page, @Param("pageSize") Integer limit);
+
+    /**
+     * 得到全部的学生
+     * @param sname
+     * @param cid
+     * @return
+     */
+    List<Student> getAllStudents1(@Param("sname") String sname, @Param("cid") Integer cid);
+
+    /**
+     * 增加一个学生
+     * @param student
+     * @return
+     */
+    boolean addStu(Student student);
+
+    /**
+     * 删除一个学生
+     * @param sid
+     * @return
+     */
+    boolean delStu(Integer sid);
+
 }

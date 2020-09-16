@@ -45,4 +45,9 @@ public class UserServiceImpl implements IUserService {
     public List<User> getAllUsers1(String uname) {
         return userDao.getAllUsers1(uname);
     }
+
+    @Override
+    public boolean resetPwd(Integer id) {
+        return userDao.resetPwd(id);
+    }
 }

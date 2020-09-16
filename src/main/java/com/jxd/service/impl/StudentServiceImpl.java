@@ -47,4 +47,24 @@ public class StudentServiceImpl implements IStudentService {
         return studentDao.getStudentBySid(sid);
     }
 
+    @Override
+    public List<Student> getAllStudents(String sname, Integer cid, Integer page, Integer limit) {
+        return studentDao.getAllStudents(sname, cid, page, limit);
+    }
+
+    @Override
+    public List<Student> getAllStudents1(String sname, Integer cid) {
+        return studentDao.getAllStudents1(sname,cid);
+    }
+
+    @Override
+    public boolean addStu(Student student) {
+        return studentDao.addStu(student);
+    }
+
+    @Override
+    public boolean delStu(Integer sid) {
+        return studentDao.delStu(sid);
+    }
+
 }
