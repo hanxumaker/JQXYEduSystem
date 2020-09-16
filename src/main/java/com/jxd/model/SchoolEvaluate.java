@@ -8,17 +8,16 @@ package com.jxd.model;
 public class SchoolEvaluate {
     private Integer id;
     private Integer sid;
-    private Integer tid;
+    private String tname;//评价人
     private  Integer finalScore;
     private String comment;
 
     public SchoolEvaluate() {
     }
 
-    public SchoolEvaluate(Integer id, Integer sid, Integer tid, Integer finalScore, String comment) {
-        this.id = id;
+    public SchoolEvaluate(Integer sid, String tname, Integer finalScore, String comment) {
         this.sid = sid;
-        this.tid = tid;
+        this.tname = tname;
         this.finalScore = finalScore;
         this.comment = comment;
     }
@@ -39,12 +38,12 @@ public class SchoolEvaluate {
         this.sid = sid;
     }
 
-    public Integer getTid() {
-        return tid;
+    public String getTname() {
+        return tname;
     }
 
-    public void setTid(Integer tid) {
-        this.tid = tid;
+    public void setTname(String tname) {
+        this.tname = tname;
     }
 
     public Integer getFinalScore() {

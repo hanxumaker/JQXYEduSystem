@@ -33,8 +33,8 @@
                 <li class="layui-nav-item">
                     <a href="toGetStudentByDeptno" target="mFrame">部门员工</a>
                 </li>
-                <li class="layui-nav-item"><a href="">工作评价</a></li>
-                <li class="layui-nav-item"><a href="">修改密码</a></li>
+                <li class="layui-nav-item">
+                    <a href="">修改密码</a></li>
             </ul>
         </div>
     </div>

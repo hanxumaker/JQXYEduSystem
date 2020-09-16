@@ -3,12 +3,14 @@ package com.jxd.dao;
 import com.jxd.model.Analytes;
 import com.jxd.model.Dept;
 import com.jxd.model.Manager;
+import com.jxd.model.WorkEvaluate;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IManagerDao {
     /**
-     * 根据已登录的经理的名字查该经理
+     * 根据已登录的经理的名字查该经理,为了获取经理所在的部门
      *
      * @param uname 登录的经理的名字
      * @return 返回该经理
@@ -30,4 +32,27 @@ public interface IManagerDao {
      */
     Dept getDnameByDeptno(Integer deptno);
 
+    /**
+     * 根据学生id查找学生的工作评价信息
+     *
+     * @param sid 要查找的学生id
+     * @return 查找到的工作评价信息
+     */
+    List<WorkEvaluate> getWorkEvaluateBySid(Integer sid);
+
+    /**
+     * 根据学生id查出该学生的学校评价信息
+     *
+     * @param sid 要查找的学生id
+     * @return 该学生的学校评价信息
+     */
+    List<Map<String, Object>> getStudentSchoolEvaluate(Integer sid);
+
+    /**
+     * 添加一个职工的工作评价信息
+     *
+     * @param list 几条评价信息
+     * @return 是否添加成功
+     */
+    boolean addWorkEvaluate(List<WorkEvaluate> list);
 }
