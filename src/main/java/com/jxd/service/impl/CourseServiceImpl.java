@@ -18,9 +18,9 @@ import java.util.Map;
 public class CourseServiceImpl implements ICourseService {
     @Autowired
     ICourseDao courseDao;
+
     @Override
-    public List<Course> getAllCourseByCid(Integer cid) {
+    public List<Map<String, String>> getAllCourseByCid(Integer cid) {
         return courseDao.getAllCourseByCid(cid);
     }
-
 }

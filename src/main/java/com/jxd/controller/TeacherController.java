@@ -1,8 +1,11 @@
 package com.jxd.controller;
 
-import com.jxd.model.Course;
+import com.jxd.model.Grade;
+import com.jxd.model.SchoolEvaluate;
 import com.jxd.model.Student;
 import com.jxd.service.ICourseService;
+import com.jxd.service.IGradeService;
+import com.jxd.service.ISchoolEvaluateService;
 import com.jxd.service.IStudentService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -17,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description TODO
@@ -24,7 +28,7 @@ import java.util.List;
  * @Date 2020/9/11 8:03
  */
 @Controller
-@SessionAttributes({"tname","cid"})
+@SessionAttributes({"tname","cid","sid"})//sid:学生成绩的id
 public class TeacherController {
     @Autowired
     IStudentService studentService;
@@ -32,12 +36,18 @@ public class TeacherController {
     @Autowired
     ICourseService courseService;
 
+    @Autowired
+    ISchoolEvaluateService schoolEvaluateService;
+
+    @Autowired
+    IGradeService gradeService;
+
     @RequestMapping("/teacher")
-    public String teacher(HttpServletRequest request,Model model) {
+    public String teacher(HttpServletRequest request, Model model) {
+        String tname = "hyh";
+        //String tname = "wmm";
         //String tname = request.getParameter("tname");
-        //String tname = "hyh";
-        String tname = "wmm";
-        model.addAttribute("tname",tname);
+        model.addAttribute("tname", tname);
         return "teacher";
     }
 
@@ -46,18 +56,18 @@ public class TeacherController {
         return "studentScore";
     }
 
-    @RequestMapping(value = "/getAllStudent",produces = "text/html;charset=utf-8")
+    @RequestMapping(value = "/getAllStudent", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String getAllStudent(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         //获取班级
-        String tname = (String)session.getAttribute("tname");
+        String tname = (String) session.getAttribute("tname");
         int cid = studentService.getCidByTeacher(tname);
-        model.addAttribute("cid",cid);
+        model.addAttribute("cid", cid);
         //获取学生,过滤条件
         String sname = request.getParameter("sname");
         //获取班级内的学生
-        List<Student> list = studentService.getAllStudentByCid(cid,sname);
+        List<Student> list = studentService.getAllStudentByCid(cid, sname);
 
         //获取一页显示几条数据
         int pageSize = Integer.parseInt(request.getParameter("limit"));
@@ -65,7 +75,7 @@ public class TeacherController {
         int pageIndex = Integer.parseInt(request.getParameter("page"));
         int count = (pageIndex - 1) * pageSize;
         //分页查询
-        List<Student> list1 = studentService.getSomeStudents(count, pageSize, sname,cid);
+        List<Student> list1 = studentService.getSomeStudents(count, pageSize, sname, cid);
         //将list转换为数组
         JSONArray jsonArray = JSONArray.fromObject(list1);
 
@@ -77,53 +87,93 @@ public class TeacherController {
         jsonObject.put("data", jsonArray);
         return jsonObject.toString();
     }
+
     @RequestMapping("/teacherScore")
-    public String teacherScore(){
-            return "teacherScore";
+    public String teacherScore() {
+        return "teacherScore";
     }
 
-    @RequestMapping(value = "/getTeacherScore",produces = "text/html;charset=utf-8")
+    @RequestMapping(value = "/getTeacherScore", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String getTeacherScore(HttpServletRequest request){
+    public String getTeacherScore(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        int cid = (int)session.getAttribute("cid");
-        List<Course> list = new ArrayList<>();
-        list = courseService.getAllCourseByCid(cid);
+        int cid = (int) session.getAttribute("cid");
+        List<Map<String, String>> list = courseService.getAllCourseByCid(cid);
         JSONArray jsonArray = JSONArray.fromObject(list);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code",0);
-        jsonObject.put("msg","");
-        jsonObject.put("count",list.size());
-        jsonObject.put("data",jsonArray);
+        jsonObject.put("code", 0);
+        jsonObject.put("msg", "");
+        jsonObject.put("count", list.size());
+        jsonObject.put("data", jsonArray);
         return jsonObject.toString();
     }
 
     @RequestMapping("/updatePassword")
-    public String updatePassword(){
+    public String updatePassword() {
         return "updatePassword";
     }
 
     //返回到学生成绩页面
     @RequestMapping("/selectStudentScore")
-    public String selectStudentScore(){
+    public String selectStudentScore(Integer sid, Model model) {
+        model.addAttribute("sid", sid);
         return "selectStudentScore";
     }
 
     //返回学生评价页面
     @RequestMapping("/studentEvaluate")
-    public String studentEvaluate(){
+    public String studentEvaluate() {
         return "studentEvaluate";
     }
 
     //老师评价页面
     @RequestMapping("/teacherEvaluate")
-    public String teacherEvaluate(){
+    public String teacherEvaluate() {
         return "teacherEvaluate";
     }
 
     //查看学生的成绩
-    @RequestMapping("/getStudentScore")
-    public String getStudentScore(){
-        return "getStudentScore";
+    @RequestMapping(value = "/getStudentScore", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String getStudentScore(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int sid = (int) session.getAttribute("sid");
+        List<Map<String, String>> list = schoolEvaluateService.getStudentScoreBySid(sid);
+        JSONArray jsonArray = JSONArray.fromObject(list);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", 0);
+        jsonObject.put("msg", "");
+        jsonObject.put("count", list.size());
+        jsonObject.put("data", jsonArray);
+        return jsonObject.toString();
+    }
+
+    //返回到学生评价页面
+    @RequestMapping("/selectStudentEvaluate")
+    public String selectStudentEvaluate(Integer sid1, Model model) {
+        SchoolEvaluate schoolEvaluate = schoolEvaluateService.selectStuEvaBySid(sid1);
+        model.addAttribute("schoolEvaluate", schoolEvaluate);
+        return "selectStudentEvaluate";
+    }
+
+    //接收前台传来的已经打分的数据，将其批量插入到成绩表中
+    @RequestMapping(value = "/gradeList", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String addStuScore(HttpServletRequest request,String stuScore) {
+        List<Grade> list = new ArrayList<>();
+        HttpSession session = request.getSession();
+        JSONArray jsonArray = JSONArray.fromObject(stuScore);
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            //获取到老师的评分
+            Grade grade = new Grade(Integer.parseInt((String)session.getAttribute("sid")), jsonObject.getInt("courseid"), jsonObject.getInt("score"));
+            list.add(grade);
+        }
+        boolean isAdd = gradeService.addStudentScore(list);
+        if (isAdd) {
+            return "提交成功";
+        } else {
+            return "提交失败";
+        }
     }
 }

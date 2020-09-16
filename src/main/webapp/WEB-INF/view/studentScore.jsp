@@ -90,15 +90,16 @@
 
         //行监听事件
         table.on('tool(test)', function(obj){
-            var data = obj.data;
+            var data = obj.data;//得到这一行的值
             switch(obj.event) {
                 case 'select':
+                    var sid = data.sid;
                     layer.open({
                         type:2,//弹出完整div;type:1弹出隐藏div
                         title:'学生成绩',
-                        content:'selectStudentScore',
+                        content:'selectStudentScore?sid=' + sid,
                         shadeClose:true,//点击遮罩，关闭弹框
-                        area:['500px','360px']
+                        area:['500px','440px']
                     });
                     break;
                 case 'score':

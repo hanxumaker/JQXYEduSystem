@@ -50,36 +50,63 @@
             , page: false
             , cols: [[ //表头
                 {type: 'checkbox'}
-                , {field: 'courseName', title: '课程', width: 165, sort: true, align: 'center'}
+                , {field: 'courseid', title: '课程编号', width: 165, sort: true, align: 'center',hide:'true'}
+                , {field: 'coursename', title: '课程', width: 165, sort: true, align: 'center'}
                 , {field: 'state', title: '状态', /*hide:'true',*/ width: 100, sort: true, align: 'center'}
-                , {field: 'score', edit:'text', title: '分数', width: 180, align: 'center'}
-            ]]
+                , {field: 'score', title: '分数', width: 180, align: 'center',edit:'text'}
+            ]],
+            //根据课程状态(未上完)将其设置为不可编辑的
+            done:function (res, curr, count) {
+                let tableView = this.elem.next();// 当前表格渲染之后的视图
+                layui.each(res.data, function(i, item) { //遍历整个表格数据
+                    if (item.state != 0) {
+                        tableView.find('tr[data-index=' + i + ']').find('td').data('edit', false);
+                        tableView.find('tr[data-index=' + i + ']').find('td').click(function () {
+                            layer.msg("该课现在还未修完，不能进行评分")
+                        })
+                    }
+                })
+            }
+        });
+        //监听单元格编辑
+        table.on('edit(tableDemo)', function(obj){
+            var value = obj.value //得到修改后的值
+                ,data = obj.data //得到所在行所有键值
+                ,filed = obj.filed; //得到字段
         });
         //监听事件,监听lay-filter="test"的元素的工具栏
         table.on('toolbar(test)', function(obj){
+            var data = obj.data;
+            var dataBak = [];   //定义一个空数组,用来存储之前编辑过的数据已经存放新数据
+            var tableBak = layui.table.cache.demo;
+            //获取之前编辑过的全部数据，前提是编辑数据是要更新缓存，stock_add_table 为表格的id
+                for (var i = 0; i < tableBak.length; i++) {
+                    if(tableBak[i].score) { //获取已经打分的数据
+                        dataBak.push(tableBak[i]);      //将之前的数组备份
+                    }
+                }
             switch(obj.event){
                 case 'submit':
                     $.ajax({
-                        url:'gradeList',
-                        type:'post',
-                        data:{
-                            
-                        },
-                        success:function (data) {
-                            if("true" == data){
-                                layer.msg('提交成功');
-                            }else{
-                                layer.msg('提交失败');
+                            url:'gradeList',
+                            type:'post',
+                            data:{
+                                stuScore:JSON.stringify(dataBak)
+                            },
+                            success:function (data) {
+                                if("true" == data){
+                                    layer.msg('提交成功');
+                                }else{
+                                    layer.msg('提交失败');
+                                }
+                            },
+                            error:function (data) {
+                                layer.msg("执行失败");
                             }
-                        },
-                        error:function (data) {
-                            layer.msg("执行失败");
-                        }
-                    })
+                        });
                     break;
             }
         });
-
     })
 </script>
 </body>

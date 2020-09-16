@@ -34,14 +34,14 @@
         table.render({
             elem: '#demo'
             , toolbar: '#toolbarDemo'//添加工具栏
-            , height: 450
+            , height: 360
             , width: 380
             , url: '/getStudentScore' //数据接口
             , page: false
             , cols: [[ //表头
                 {type: 'checkbox'}
                 , {field: 'coursename', title: '课程', width: 150, sort: true, align: 'center',}
-                , {field: 'score', title: '分数', width: 150, align: 'center'}
+                , {field: 'score', title: '分数', width: 175, align: 'center'}
             ]]
         });
     })
