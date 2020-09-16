@@ -1,14 +1,14 @@
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
-  Date: 2020/9/13
-  Time: 10:19
+  Date: 2020/9/14
+  Time: 17:10
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>班级学生页面</title>
+    <title>学生综合评价</title>
     <link href="../../static/layui/css/layui.css" rel="stylesheet">
     <script src="../../static/layui/layui.js"></script>
     <style>
@@ -37,7 +37,7 @@
 </script>
 <script type="text/html" id="barDemo">
     <div class="layui-input-inline">
-        <button class="layui-btn layui-btn-sm" lay-event="score">评分</button>
+        <button class="layui-btn layui-btn-sm" lay-event="score">评价</button>
         <button class="layui-btn layui-btn-sm" lay-event="select">查看</button>
         <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
     </div>
@@ -91,13 +91,22 @@
         table.on('tool(test)', function(obj){
             var data = obj.data;
             switch(obj.event) {
+                case 'select':
+                    layer.open({
+                        type:2,//弹出完整div;type:1弹出隐藏div
+                        title:'学生评价',
+                        content:'selectStudentEvaluate',
+                        shadeClose:true,//点击遮罩，关闭弹框
+                        area:['500px','360px']
+                    });
+                    break;
                 case 'score':
                     layer.open({
                         type:2,//弹出完整div;type:1弹出隐藏div
-                        title:'老师评分',
-                        content:'teacherScore',
+                        title:'进行评价',
+                        content:'teacherEvaluate',
                         shadeClose:true,//点击遮罩，关闭弹框
-                        area:['500px','360px']
+                        area:['360px','400px']
                     });
                     break;
                 case 'update':
@@ -120,3 +129,4 @@
 </script>
 </body>
 </html>
+

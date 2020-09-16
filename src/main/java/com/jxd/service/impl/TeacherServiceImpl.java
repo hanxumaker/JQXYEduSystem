@@ -37,4 +37,9 @@ public class TeacherServiceImpl implements ITeacherService {
     public boolean delTeacher(Teacher teacher) {
         return teacherDao.delTeacher(teacher);
     }
+
+    @Override
+    public boolean editTea(Teacher teacher) {
+        return teacherDao.editTea(teacher);
+    }
 }

@@ -4,8 +4,8 @@
 <mapper namespace="com.jxd.dao.ICourseDao">
     <!--List<Course> getAllCourseByCid(Integer cid);-->
     <select id="getAllCourseByCid" resultType="Course">
-        select co.coursename from  course co
-        where co.courseid
+        select coursename,state from course
+        where courseid
         in(select courseid from ctoc where cid=#{cid})
     </select>
 </mapper>

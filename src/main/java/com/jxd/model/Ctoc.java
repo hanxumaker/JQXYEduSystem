@@ -8,13 +8,20 @@ package com.jxd.model;
 public class Ctoc {
     private Integer cid;//班级id
     private Integer courseId;//课程id
-
-    public Ctoc(Integer cid, Integer courseId) {
-        this.cid = cid;
-        this.courseId = courseId;
-    }
+    private Integer state;//课程状态
 
     public Ctoc() {
+    }
+
+    public Ctoc(Integer cid, Integer courseId, Integer state) {
+        this.cid = cid;
+        this.courseId = courseId;
+        this.state = state;
+    }
+
+    public Ctoc(Integer courseId, Integer state) {
+        this.courseId = courseId;
+        this.state = state;
     }
 
     public Integer getCid() {
@@ -31,5 +38,13 @@ public class Ctoc {
 
     public void setCourseId(Integer courseId) {
         this.courseId = courseId;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

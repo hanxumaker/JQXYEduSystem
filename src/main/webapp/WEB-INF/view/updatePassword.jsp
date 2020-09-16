@@ -26,7 +26,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">老师姓名</label>
             <div class="layui-input-inline">
-                <input type="text" name="ename" id="ename" required lay-verify="required" placeholder="${sessionScope.tname}" autocomplete="off" class="layui-input">
+                <input type="text" name="ename" id="ename" required lay-verify="required" value="${sessionScope.tname}" readonly autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">

@@ -1,5 +1,7 @@
 package com.jxd.service.impl;
 
+import com.jxd.dao.IManagerDao;
+import com.jxd.model.Manager;
 import com.jxd.dao.IAnalytesDao;
 import com.jxd.dao.IManagerDao;
 import com.jxd.model.Analytes;
@@ -20,6 +22,33 @@ import java.util.Map;
  */
 @Service
 public class ManagerServiceImpl implements IManagerService {
+    @Autowired
+    IManagerDao managerDao;
+
+    @Override
+    public List<Manager> getAllTeachers(String tname, Integer page, Integer limit) {
+        return managerDao.getAllTeachers(tname, page, limit);
+    }
+
+    @Override
+    public List<Manager> getAllTeachers1(String tname) {
+        return managerDao.getAllTeachers1(tname);
+    }
+
+    @Override
+    public boolean addTeacher(Manager manager) {
+        return managerDao.addTeacher(manager);
+    }
+
+    @Override
+    public boolean delTeacher(Manager manager) {
+        return managerDao.delTeacher(manager);
+    }
+
+    @Override
+    public boolean editTea(Manager manager) {
+        return managerDao.editTea(manager);
+    }
     @Autowired
     IManagerDao managerDao;
     @Override
