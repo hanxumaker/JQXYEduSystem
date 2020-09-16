@@ -47,7 +47,7 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;"><iframe class="layadmin-iframe"
                                             style="width: 100%; height:90%;"
-                                            name="mFrame" scrolling="false" src="myStudent"></iframe></div>
+                                            name="mFrame" scrolling="false" src="studentScore"></iframe></div>
     </div>
 </div>
 <script>

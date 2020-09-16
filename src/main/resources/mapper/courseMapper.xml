@@ -2,10 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.ICourseDao">
-    <!--List<Course> getAllCourseByCid(Integer cid);-->
-    <select id="getAllCourseByCid" resultType="Course">
-        select coursename,state from course
-        where courseid
-        in(select courseid from ctoc where cid=#{cid})
+    <!--List<Map<String,String>> getAllCourseByCid(Integer cid);-->
+    <select id="getAllCourseByCid" resultType="map">
+        select co.coursename coursename,co.courseid courseid,ct.state state from course co inner join ctoc ct on
+        co.courseid = ct.courseid where ct.cid=#{cid} order by co.courseid
     </select>
 </mapper>

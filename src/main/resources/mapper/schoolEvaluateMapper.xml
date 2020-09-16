@@ -8,4 +8,8 @@
         on co.courseid = g.courseid
         where sid=#{sid}
     </select>
+    <!--SchoolEvaluate selectStuEvaBySid(Integer sid);-->
+    <select id="selectStuEvaBySid" resultType="SchoolEvaluate">
+        select finalscore,comment from schoolevaluate where sid=#{sid}
+    </select>
 </mapper>

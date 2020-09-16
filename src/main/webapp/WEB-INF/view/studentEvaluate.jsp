@@ -92,36 +92,45 @@
             var data = obj.data;
             switch(obj.event) {
                 case 'select':
+                    var sid1 = data.sid;
                     layer.open({
                         type:2,//弹出完整div;type:1弹出隐藏div
                         title:'学生评价',
-                        content:'selectStudentEvaluate',
+                        content:'selectStudentEvaluate?sid1=' + sid1,
                         shadeClose:true,//点击遮罩，关闭弹框
                         area:['500px','360px']
                     });
                     break;
                 case 'score':
-                    layer.open({
-                        type:2,//弹出完整div;type:1弹出隐藏div
-                        title:'进行评价',
-                        content:'teacherEvaluate',
-                        shadeClose:true,//点击遮罩，关闭弹框
-                        area:['360px','400px']
-                    });
+                    if(data.state > 5) {
+                        layer.msg(data.sname + "已经毕业，无法进行评价")
+                    }else{
+                        layer.open({
+                            type:2,//弹出完整div;type:1弹出隐藏div
+                            title:'进行评价',
+                            content:'teacherEvaluate',
+                            shadeClose:true,//点击遮罩，关闭弹框
+                            area:['360px','400px']
+                        });
+                    }
                     break;
                 case 'update':
                     var id = data.id;
-                    layer.open({
-                        type:2,//弹出完整div;type:1弹出隐藏div
-                        title:'学生编辑',
-                        content:'getStudentById?id=' + id,
-                        shadeClose:true,//点击遮罩，关闭弹框
-                        area:['380px','460px'],
-                        end:function () {
-                            //刷新当前页
-                            $(".layui-laypage-btn").click();
-                        }
-                    });
+                    if(data.state > 5) {
+                        layer.msg(data.sname + "已经毕业，无法修改评价")
+                    }else{
+                        layer.open({
+                            type:2,//弹出完整div;type:1弹出隐藏div
+                            title:'学生编辑',
+                            content:'getStudentById?id=' + id,
+                            shadeClose:true,//点击遮罩，关闭弹框
+                            area:['380px','460px'],
+                            end:function () {
+                                //刷新当前页
+                                $(".layui-laypage-btn").click();
+                            }
+                        });
+                    }
                     break;
             }
         });

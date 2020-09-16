@@ -18,9 +18,6 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">整体分数</label>
                 <div class="layui-input-inline">
-<%--
-                    <input type="text" name="finalScore" id="finalScore" required lay-verify="required" placeholder="请输入分数" autocomplete="off" class="layui-input">
---%>
                     <select name="finalScore" lay-verify="required" id="finalScore">
                         <option value=""></option>
                         <option value="1">1</option>
@@ -42,7 +39,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <script>
         //Demo

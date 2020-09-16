@@ -1,6 +1,7 @@
 package com.jxd.service.impl;
 
 import com.jxd.dao.ISchoolEvaluateDao;
+import com.jxd.model.SchoolEvaluate;
 import com.jxd.service.ISchoolEvaluateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,10 @@ public class SchoolEvaluateServiceImpl implements ISchoolEvaluateService {
     @Override
     public List<Map<String, String>> getStudentScoreBySid(Integer sid) {
         return schoolEvaluateDao.getStudentScoreBySid(sid);
+    }
+
+    @Override
+    public SchoolEvaluate selectStuEvaBySid(Integer sid) {
+        return schoolEvaluateDao.selectStuEvaBySid(sid);
     }
 }
