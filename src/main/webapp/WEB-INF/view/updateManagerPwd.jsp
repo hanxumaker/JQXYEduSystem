@@ -36,7 +36,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <input type="submit" class="layui-btn" lay-submit lay-filter="formDemo" id="sub"></input>
+                <input type="submit" class="layui-btn" lay-submit lay-filter="formDemo" id="sub">
             </div>
         </div>
     </div>
