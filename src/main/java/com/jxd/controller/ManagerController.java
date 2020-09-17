@@ -1,7 +1,5 @@
 package com.jxd.controller;
 
-import com.jxd.dao.IDeptDao;
-import com.jxd.dao.IStudentDao;
 import com.jxd.model.*;
 import com.jxd.service.IManagerService;
 import com.jxd.service.IStudentService;
@@ -11,14 +9,12 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,17 +58,17 @@ public class ManagerController {
 
     @RequestMapping("/toEvaluationPage")
     public String toEvaluationPage(@ModelAttribute("User") User user, Integer sid, Model model) {
-        //将查找到的学生存入model
+        //将查找到的员工存入model
         Student student = studentService.getStudentBySid(sid);
         model.addAttribute("student", student);
         //将查到的部门名称存入model
         Manager manager = managerService.getManagerByMname(user.getUname());
         Dept dept = managerService.getDnameByDeptno(manager.getDeptno());
         model.addAttribute("dname", dept.getDname());
-        //将查到的该学生的工作评价信息存入model
+        //将查到的该员工的工作评价信息存入model
         List<WorkEvaluate> list1 = managerService.getWorkEvaluateBySid(sid);
         model.addAttribute("wList", list1);
-        //将查到的该学生的学校评价信息存入model
+        //将查到的该员工的学校评价信息存入model
         List<Map<String, Object>> list = managerService.getStudentSchoolEvaluate(sid);
         model.addAttribute("sList", list);
         return "evaluationPage";
@@ -80,7 +76,7 @@ public class ManagerController {
 
     @RequestMapping(value = "/addWorkEvaluate", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String addWorkEvaluate(Integer sid, Integer dateId, Integer score0, Integer score1, Integer score2,
+    public String addWorkEvaluate(Integer state, Integer sid, Integer dateId, Integer score0, Integer score1, Integer score2,
                                   Integer score3, Integer score4, Integer totalScore, String evaluatePerson, String evaluateContent) {
         WorkEvaluate workEvaluate = new WorkEvaluate(dateId, sid, 1, evaluatePerson, score0, totalScore, evaluateContent);
         WorkEvaluate workEvaluate1 = new WorkEvaluate(dateId, sid, 2, evaluatePerson, score1, totalScore, evaluateContent);
@@ -94,11 +90,32 @@ public class ManagerController {
         list.add(workEvaluate3);
         list.add(workEvaluate4);
         boolean isAdd = managerService.addWorkEvaluate(list);
+        boolean isUpdate;
         if (isAdd) {
-            return "评价成功";
+            if (state == 9) {
+                isUpdate = managerService.editStudentState(sid, state);
+            } else {
+                isUpdate = managerService.editStudentState(sid, (state + 1));
+            }
+            if (isUpdate) {
+                return "评价成功";
+            } else {
+                return "评价失败";
+            }
         } else {
             return "评价失败";
         }
     }
 
+    @RequestMapping("/toUpdateManagerPwd")
+    public String toUpdatePwd() {
+        return "updateManagerPwd";
+    }
+
+    @RequestMapping("/updateManagerPwd")
+    @ResponseBody
+    public String updateManagerPwd(String uname, String password) {
+        boolean isUpdate = managerService.updateManagerPwd(uname, password);
+        return "isUpdate";
+    }
 }

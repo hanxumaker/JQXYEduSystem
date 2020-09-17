@@ -16,6 +16,7 @@ import java.util.Map;
 public interface IManagerDao {
     /**
      * 获取老师列表
+     *
      * @param tname 模糊查询
      * @param page
      * @param limit
@@ -25,6 +26,7 @@ public interface IManagerDao {
 
     /**
      * 获取老师列表的长度
+     *
      * @param tname 模糊查询
      * @return 返回一个列表
      */
@@ -32,6 +34,7 @@ public interface IManagerDao {
 
     /**
      * 添加一个老师
+     *
      * @param manager
      * @return 返回是否添加成功
      */
@@ -39,6 +42,7 @@ public interface IManagerDao {
 
     /**
      * 删除一个老师
+     *
      * @param manager
      * @return 返回是否添加成功
      */
@@ -46,10 +50,12 @@ public interface IManagerDao {
 
     /**
      * 编辑一个老师的信息
+     *
      * @param manager
      * @return 是否编辑成功
      */
     boolean editTea(Manager manager);
+
     /**
      * 根据已登录的经理的名字查该经理
      * 根据已登录的经理的名字查该经理,为了获取经理所在的部门
@@ -75,26 +81,43 @@ public interface IManagerDao {
     Dept getDnameByDeptno(Integer deptno);
 
     /**
-     * 根据学生id查找学生的工作评价信息
+     * 根据员工id查找该员工的工作评价信息
      *
-     * @param sid 要查找的学生id
+     * @param sid 要查找的员工id
      * @return 查找到的工作评价信息
      */
     List<WorkEvaluate> getWorkEvaluateBySid(Integer sid);
 
     /**
-     * 根据学生id查出该学生的学校评价信息
+     * 根据员工id查出该员工的学校评价信息
      *
-     * @param sid 要查找的学生id
-     * @return 该学生的学校评价信息
+     * @param sid 要查找的员工id
+     * @return 该员工的学校评价信息
      */
     List<Map<String, Object>> getStudentSchoolEvaluate(Integer sid);
 
     /**
-     * 添加一个职工的工作评价信息
+     * 添加一个员工的工作评价信息
      *
-     * @param list 几条评价信息
+     * @param list 要添加的员工评价信息
      * @return 是否添加成功
      */
     boolean addWorkEvaluate(List<WorkEvaluate> list);
+
+    /**
+     * 根据员工id修改员工的状态
+     *
+     * @param sid   员工id
+     * @param state 要修改成的状态
+     * @return 是否修改成功
+     */
+    boolean editStudentState(@Param("sid") Integer sid, @Param("state") Integer state);
+
+    /**
+     * 根据经理名字修改经理密码
+      * @param uname 经理的登录的用户名
+     * @param password 新密码
+     * @return 是否修改成功
+     */
+    boolean updateManagerPwd(@Param("uname") String uname,@Param("password") String password);
 }

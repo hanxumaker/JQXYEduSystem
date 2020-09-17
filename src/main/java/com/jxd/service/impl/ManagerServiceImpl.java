@@ -79,4 +79,14 @@ public class ManagerServiceImpl implements IManagerService {
     public boolean addWorkEvaluate(List<WorkEvaluate> list) {
         return managerDao.addWorkEvaluate(list);
     }
+
+    @Override
+    public boolean editStudentState(Integer sid, Integer state) {
+        return managerDao.editStudentState(sid,state);
+    }
+
+    @Override
+    public boolean updateManagerPwd(String uname, String password) {
+        return managerDao.updateManagerPwd(uname,password);
+    }
 }

@@ -14,10 +14,11 @@
     <style>
         body {
             text-align: center; /*把整体的页面居中*/
-            background-image: url("../../static/imgs/1.jpg");
+            background-image: url("../../static/imgs/5.jpg");
             background-repeat: no-repeat;
             background-size: 100%;
             background-attachment: fixed;
+           -webkit-overflow-scrolling: unset;
         }
 
         #div1 {
@@ -65,7 +66,7 @@
 <!--action表示当前表单提交到哪里去
 action的值对应地是url-pattern-->
 <div class="layui-row layui-col-space10" id="div1">
-    <form class="layui-form" action="login" method="post">
+    <form class="layui-form" action="login" method="get">
         <div id="div2">金桥学员追踪系统</div>
         <div class="layui-form-item" id="div3">
             <label class="layui-form-label">
@@ -94,23 +95,22 @@ action的值对应地是url-pattern-->
     </form>
 </div>
 <script>
-    //Demo
-    layui.use('form', function () {
-        var form = layui.form;
-        var layer = layui.layer;
-        $ = layui.jquery;
-        $("#sub").click(function () {
-            if ($("#uname").val() == "" || $("#password").val() == "") {
-                alert("信息填写不完整,无法登录");
-            }
-        });
-        $("#uname").focus(function () {
-            $("#msg").html("");
-        });
-        $("#password").focus(function () {
-            $("#msg").html("");
-        })
-    });
+     layui.use('form', function () {
+         var form = layui.form;
+         var layer = layui.layer;
+         $ = layui.jquery;
+         $("#sub").click(function () {
+             if ($("#uname").val() == "" || $("#password").val() == "") {
+                 layer.msg("信息填写不完整,无法登录",{offset:'100px',icon:2});
+             }
+         });
+         $("#uname").focus(function () {
+             $("#msg").html("");
+         });
+         $("#password").focus(function () {
+             $("#msg").html("");
+         })
+     });
 </script>
 </body>
 </html>

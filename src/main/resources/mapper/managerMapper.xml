@@ -2,11 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.IManagerDao">
-    <select id="getManagerByMname" resultType="Manager">
     <sql id="BaseSql">
-       select id,mname,deptno from manager
+        select id,mname,deptno from manager
     </sql>
-
     <!--List<Teacher> getAllTeachers-->
     <select id="getAllTeachers1" resultType="Manager">
         <include refid="BaseSql"></include>
@@ -39,6 +37,13 @@
     <update id="editTea">
         update manager set mname = #{mname} where id = #{id}
     </update>
+    <!-- /**
+     * 根据已登录的经理的名字查该经理
+     *
+     * @param uname 登录的经理的名字
+     * @return 返回该经理
+     */
+    Manager getManagerByMname(String uname);-->
 <select id="getManagerByMname" resultType="Manager">
     select id,mname,deptno from manager where mname=#{mname}
 </select>
@@ -61,8 +66,8 @@
         select deptno,dname from dept where deptno=#{deptno}
     </select>
     <!-- /**
-     * 根据学生id查找学生的工作评价信息
-     * @param sid 要查找的学生id
+     * 根据员工id查找员工的工作评价信息
+     * @param sid 要查找的员工id
      * @return 查找到的工作评价信息
      */
      List<WorkEvaluate> getWorkEvaluateBySid(Integer sid);-->
@@ -79,8 +84,8 @@
         <result property="dateId" column="dateId"></result>
     </resultMap>
     <!-- /**
-         * 根据学生id查找该学生在学校时的评价信息
-         * @param sid 要查找的学生id
+         * 根据员工id查找该员工在学校时的评价信息
+         * @param sid 要查找的员工id
          * @return 评价信息
          */
         List<Map<String,Object>> getStudentSchoolEvaluate(Integer sid);-->
@@ -92,17 +97,37 @@ inner join course co on g.courseid=co.courseid
 inner join schoolevaluate sch on g.sid=sch.sid where s.sid=#{sid}
     </select>
     <!-- /**
-     * 添加一个职工的工作评价信息
-      * @param list 几条评价信息
+     * 添加一个员工的工作评价信息
+      * @param list 要添加的评价信息
      * @return 是否添加成功
      */
     boolean addWorkEvaluate(List<WorkEvaluate> list);-->
     <insert id="addWorkEvaluate">
-        insert into dateid,sid,aid,evaluateperson,evaluatescore,totalscore,evaluatecontent
+        insert into workevaluate (dateid,sid,aid,evaluateperson,evaluatescore,totalscore,evaluatecontent)
         values
         <foreach collection="list" item="workEvaluate" separator=",">
             (#{workEvaluate.dateId},#{workEvaluate.sid},#{workEvaluate.aid},#{workEvaluate.evaluatePerson}
             ,#{workEvaluate.evaluateScore},#{workEvaluate.totalScore},#{workEvaluate.evaluateContent})
         </foreach>
     </insert>
+    <!--/**
+     * 根据员工id修改员工的状态
+      * @param sid 员工id
+     * @param state 要修改成的状态
+     * @return 是否修改成功
+     */
+    boolean editStudentState(Integer sid,Integer state);-->
+    <update id="editStudentState">
+        update student set state=#{state} where sid=#{sid}
+    </update>
+    <!-- /**
+     * 根据经理名字修改经理密码
+      * @param username 经理的登录的用户名
+     * @param password 新密码
+     * @return 是否修改成功
+     */
+    boolean updateManagerPwd(@Param("username") String username,@Param("password") String password);-->
+<update id="updateManagerPwd">
+    update user set password=#{password} where uname=#{uname}
+</update>
 </mapper>

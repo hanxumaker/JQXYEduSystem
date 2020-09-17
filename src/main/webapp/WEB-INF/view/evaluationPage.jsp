@@ -104,13 +104,13 @@
                 $(".div").show();
                 break;
             case 8:
-                $("#div4").show();
-                $("#div3").show();
+                $("#div1").show();
                 $("#div2").show();
+                $("#div3").show();
                 break;
             case 7:
-                $("#div4").show();
-                $("#div3").show();
+                $("#div1").show();
+                $("#div2").show();
                 break;
             case 6:
                 $("#div1").show();
@@ -623,41 +623,35 @@
                         if ($("#score0").val() == "" || $("#score1").val() == "" || $("#score2").val() == "" ||
                             $("#score3").val() == "" || $("#score4").val() == "" || $("#totalScore").val() == "" ||
                             $("#evaluateContent").val() == "") {
-                           layer.msg("成绩或综合评语不能为空",{icon:2,time:2000});
-                           return false;
+                            layer.msg("成绩或综合评语不能为空", {icon: 2, time: 2000});
+                            return false;
                         }
-                        layer.confirm('确定提交吗?提交后将不能修改', {icon: 3, title:'提示'}, function(index){
-                            //do something
+                        layer.confirm('确定提交吗?提交后将不能修改', {icon: 3, title: '提示'}, function () {
                             $.ajax({
                                 type: 'get'
                                 , url: '/addWorkEvaluate'
                                 , data: {
-                                    score0:$("#score0").val(),
-                                    score1:$("#score1").val(),
-                                    score2:$("#score2").val(),
-                                    score3:$("#score3").val(),
-                                    score4:$("#score4").val(),
+                                    score0: $("#score0").val(),
+                                    score1: $("#score1").val(),
+                                    score2: $("#score2").val(),
+                                    score3: $("#score3").val(),
+                                    score4: $("#score4").val(),
                                     totalScore: $("#totalScore").val(),
-                                    sid:'${student.sid}',
+                                    sid: '${student.sid}',
                                     evaluatePerson: '${User.uname}',
                                     evaluateContent: $("#evaluateContent").val(),
-                                    dateId:1
+                                    dateId: 1,
+                                    state: '${student.state}'//员工当前状态
                                 }
                                 , success: function (data) {
-                                    if (data.type === "success") {
-                                        layer.alert(data.msg, function () {
-                                            layer.closeAll();
-                                            location.href = "evaluationPage?sid=" + '${student.sid}'
-                                        });
-                                    } else {
-                                        layer.msg(data.msg)
-                                    }
+                                    layer.msg(data, {icon: 6, time: 3000}, function () {
+                                        location.href = "toEvaluationPage?sid=" + '${student.sid}'
+                                    });
                                 },
-                                error: function (xhr, textStatus) {
-                                    console.log("错误")
+                                error: function (data) {
+                                    layer.msg(data, {icon: 2, time: 2000});
                                 }
                             });
-                            layer.close(index);
                         });
                     })
                 }
@@ -672,6 +666,73 @@
                 area: ['90%', '85%'],
                 shadeClose: true,
                 content: $("#form2"),
+                success: function () {
+                    $("#score0").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score0").val() == "" || !reg.test($("#score0").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#score1").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score1").val() == "" || !reg.test($("#score1").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#score2").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score2").val() == "" || !reg.test($("#score2").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#score3").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score3").val() == "" || !reg.test($("#score3").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#score4").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score4").val() == "" || !reg.test($("#score4").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#revise2").click(function () {
+                        if ($("#score0").val() == "" || $("#score1").val() == "" || $("#score2").val() == "" ||
+                            $("#score3").val() == "" || $("#score4").val() == "" || $("#totalScore").val() == "" ||
+                            $("#evaluateContent").val() == "") {
+                            layer.msg("成绩或综合评语不能为空", {icon: 2, time: 2000});
+                            return false;
+                        }
+                        layer.confirm('确定提交吗?提交后将不能修改', {icon: 3, title: '提示'}, function () {
+                            $.ajax({
+                                type: 'get'
+                                , url: '/addWorkEvaluate'
+                                , data: {
+                                    score0: $("#score0").val(),
+                                    score1: $("#score1").val(),
+                                    score2: $("#score2").val(),
+                                    score3: $("#score3").val(),
+                                    score4: $("#score4").val(),
+                                    totalScore: $("#totalScore").val(),
+                                    sid: '${student.sid}',
+                                    evaluatePerson: '${User.uname}',
+                                    evaluateContent: $("#evaluateContent").val(),
+                                    dateId: 2,
+                                    state: '${student.state}'//员工当前状态
+                                }
+                                , success: function (data) {
+                                    layer.msg(data, {icon: 6, time: 3000}, function () {
+                                        location.href = "toEvaluationPage?sid=" + '${student.sid}'
+                                    });
+                                },
+                                error: function (data) {
+                                    layer.msg(data, {icon: 2, time: 2000});
+                                }
+                            });
+                        });
+                    })
+                }
             })
         });
         $("#btn3").click(function () {
@@ -682,7 +743,74 @@
                 shift: 2,
                 area: ['90%', '85%'],
                 shadeClose: true,
-                content: $("#form3")
+                content: $("#form3"),
+                success: function () {
+                    $("#score0").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score0").val() == "" || !reg.test($("#score0").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#score1").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score1").val() == "" || !reg.test($("#score1").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#score2").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score2").val() == "" || !reg.test($("#score2").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#score3").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score3").val() == "" || !reg.test($("#score3").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#score4").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score4").val() == "" || !reg.test($("#score4").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#revise3").click(function () {
+                        if ($("#score0").val() == "" || $("#score1").val() == "" || $("#score2").val() == "" ||
+                            $("#score3").val() == "" || $("#score4").val() == "" || $("#totalScore").val() == "" ||
+                            $("#evaluateContent").val() == "") {
+                            layer.msg("成绩或综合评语不能为空", {icon: 2, time: 2000});
+                            return false;
+                        }
+                        layer.confirm('确定提交吗?提交后将不能修改', {icon: 3, title: '提示'}, function () {
+                            $.ajax({
+                                type: 'get'
+                                , url: '/addWorkEvaluate'
+                                , data: {
+                                    score0: $("#score0").val(),
+                                    score1: $("#score1").val(),
+                                    score2: $("#score2").val(),
+                                    score3: $("#score3").val(),
+                                    score4: $("#score4").val(),
+                                    totalScore: $("#totalScore").val(),
+                                    sid: '${student.sid}',
+                                    evaluatePerson: '${User.uname}',
+                                    evaluateContent: $("#evaluateContent").val(),
+                                    dateId: 3,
+                                    state:'${student.state}'//员工当前状态
+                                }
+                                , success: function (data) {
+                                    layer.msg(data,{icon:6,time:3000},function () {
+                                        location.href = "toEvaluationPage?sid=" + '${student.sid}'
+                                    });
+                                },
+                                error: function (data) {
+                                    layer.msg(data,{icon:2,time:2000});
+                                }
+                            });
+                        });
+                    })
+                }
             })
         });
         $("#btn4").click(function () {
@@ -693,7 +821,74 @@
                 shift: 2,
                 area: ['90%', '85%'],
                 shadeClose: true,
-                content: $("#form4")
+                content: $("#form4"),
+                success: function () {
+                    $("#score0").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score0").val() == "" || !reg.test($("#score0").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#score1").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score1").val() == "" || !reg.test($("#score1").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#score2").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score2").val() == "" || !reg.test($("#score2").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#score3").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score3").val() == "" || !reg.test($("#score3").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#score4").blur(function () {
+                        var reg = /^[0-5]$/;
+                        if ($("#score4").val() == "" || !reg.test($("#score4").val())) {
+                            layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
+                        }
+                    });
+                    $("#revise4").click(function () {
+                        if ($("#score0").val() == "" || $("#score1").val() == "" || $("#score2").val() == "" ||
+                            $("#score3").val() == "" || $("#score4").val() == "" || $("#totalScore").val() == "" ||
+                            $("#evaluateContent").val() == "") {
+                            layer.msg("成绩或综合评语不能为空", {icon: 2, time: 2000});
+                            return false;
+                        }
+                        layer.confirm('确定提交吗?提交后将不能修改', {icon: 3, title: '提示'}, function () {
+                            $.ajax({
+                                type: 'get'
+                                , url: '/addWorkEvaluate'
+                                , data: {
+                                    score0: $("#score0").val(),
+                                    score1: $("#score1").val(),
+                                    score2: $("#score2").val(),
+                                    score3: $("#score3").val(),
+                                    score4: $("#score4").val(),
+                                    totalScore: $("#totalScore").val(),
+                                    sid: '${student.sid}',
+                                    evaluatePerson: '${User.uname}',
+                                    evaluateContent: $("#evaluateContent").val(),
+                                    dateId: 4,
+                                    state:'${student.state}'//员工当前状态
+                                }
+                                , success: function (data) {
+                                    layer.msg(data,{icon:6,time:3000},function () {
+                                        location.href = "toEvaluationPage?sid=" + '${student.sid}'
+                                    });
+                                },
+                                error: function (data) {
+                                    layer.msg(data,{icon:2,time:2000});
+                                }
+                            });
+                        });
+                    })
+                }
             })
         })
     })
