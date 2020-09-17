@@ -55,4 +55,12 @@ public interface IStudentDao {
      * @return 查找到的学生
      */
     Student getStudentBySid(Integer sid);
+
+    /**
+     * @Description 提交学校评价表后，修改学生状态
+     * @param sid
+     * @Return 是否修改成功
+     * @Date 2020/9/16 12:02
+     */
+    boolean editStuSta(@Param("sid")Integer sid,@Param("state")Integer state,@Param("deptno")Integer deptno);
 }

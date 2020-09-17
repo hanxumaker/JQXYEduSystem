@@ -12,4 +12,9 @@
     <select id="selectStuEvaBySid" resultType="SchoolEvaluate">
         select finalscore,comment from schoolevaluate where sid=#{sid}
     </select>
+    <!--boolean addSchEva(SchoolEvaluate schoolEvaluate);-->
+    <insert id="addSchEva">
+        insert into schoolevaluate(sid,tname,finalscore,comment) values
+        (#{sid},#{tname},#{finalScore},#{comment})
+    </insert>
 </mapper>

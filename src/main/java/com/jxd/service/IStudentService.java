@@ -55,4 +55,11 @@ public interface IStudentService {
      */
     Student getStudentBySid(Integer sid);
 
+    /**
+    * @Description 提交学校评价表后，修改学生状态
+    * @param sid
+    * @Return 是否修改成功
+    * @Date 2020/9/16 12:02
+    */
+    boolean editStuSta(Integer sid,Integer state,Integer deptno);
 }

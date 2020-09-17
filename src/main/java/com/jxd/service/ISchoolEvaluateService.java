@@ -22,4 +22,11 @@ public interface ISchoolEvaluateService {
     * @Date 2020/9/15 16:41
     */
     SchoolEvaluate selectStuEvaBySid(Integer sid);
+    /**
+    * @Description 添加学校评价
+    * @param schoolEvaluate
+    * @Return 是否添加成功
+    * @Date 2020/9/16 11:22
+    */
+    boolean addSchEva(SchoolEvaluate schoolEvaluate);
 }

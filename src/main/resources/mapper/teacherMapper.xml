@@ -38,4 +38,8 @@
     <update id="editTea">
         update teacher set tname = #{tname} where tid = #{tid}
     </update>
+    <!-- boolean updatePwd(String newPwd,String tname);-->
+    <update id="updatePwd">
+        update user set password=#{newPwd} where uname=#{tname}
+    </update>
 </mapper>

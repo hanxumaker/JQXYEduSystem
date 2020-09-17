@@ -42,4 +42,11 @@ public class TeacherServiceImpl implements ITeacherService {
     public boolean editTea(Teacher teacher) {
         return teacherDao.editTea(teacher);
     }
+
+    @Override
+    public boolean updatePwd(String newPwd, String tname) {
+        return teacherDao.updatePwd(newPwd,tname);
+    }
+
+
 }

@@ -47,18 +47,18 @@
             $ = layui.$;
             //点击提交按钮
             $("#addEvaluate").click(function () {
+                layer.confirm('确定要提交吗?提交之后不可在进行修改！',function(){
                 $.ajax({
-                    url:"AddEvaluate",
+                    url:"addEvaluate",
                     type:"post",
                     data:{
-                        ename:$("#ename").val(),
-                        job:$("#job").val(),
-                        hiredate:$("#hiredate").val(),
-                        sal:$("#sal").val()
+                        finalScore:$("#finalScore").val(),
+                        comment:$("#comment").val(),
+                        sid:'${sid}'
                     },
                     dataType:"text",//默认值为text
                     success:function (data) {
-                        if("true" == data){
+                        if(data){
                             layer.msg('新增成功');
                             setTimeout('closeAdd()',1000)
                         }else{
@@ -72,27 +72,7 @@
                     }
                 })
             });
-
-            //员工输入姓名后失去焦点
-            $("#ename").blur(function () {
-                $.ajax({
-                    url:"TestAjaxServlet",//要请求的后台资源
-                    type:"get",//ajax请求类型
-                    data:{//向服务器发送的数据
-                        ename:$("#ename").val()
-                    },
-                    dataType:"text",//向服务器响应数据类型
-                    //dataType:"json",
-                    success:function (data) {
-                        $("#enameDiv").text(data);
-                    },
-                    error:function (data) {
-                        layer.msg("执行失败")
-                    }
-                })
-            });
-
-
+            })
             ///监听提交
             form.on('submit(formDemo)', function(data){
                 layer.msg(JSON.stringify(data.field));

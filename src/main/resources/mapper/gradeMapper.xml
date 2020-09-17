@@ -6,7 +6,7 @@
     <insert id="addStudentScore">
         insert into grade(sid,courseid,score) values
         <foreach collection="list" item="grade" separator=",">
-            (#{grade.sid},#{grade.courseid},#{grade.score})
+            (#{grade.sid},#{grade.courseId},#{grade.score})
         </foreach>
     </insert>
 </mapper>

@@ -27,4 +27,9 @@ public class SchoolEvaluateServiceImpl implements ISchoolEvaluateService {
     public SchoolEvaluate selectStuEvaBySid(Integer sid) {
         return schoolEvaluateDao.selectStuEvaBySid(sid);
     }
+
+    @Override
+    public boolean addSchEva(SchoolEvaluate schoolEvaluate) {
+        return schoolEvaluateDao.addSchEva(schoolEvaluate);
+    }
 }
