@@ -44,8 +44,7 @@
             , url: '/getTeacherScore' //数据接口
             , page: false
             , cols: [[ //表头
-                {type: 'checkbox'}
-                , {field: 'courseid', title: '课程编号', width: 165, sort: true, align: 'center',hide:'true'}
+                  {field: 'courseid', title: '课程编号', width: 165, sort: true, align: 'center',hide:'true'}
                 , {field: 'coursename', title: '课程', width: 165, sort: true, align: 'center'}
                 , {field: 'state', title: '状态', hide:'true', width: 100, sort: true, align: 'center'}
                 , {field: 'score', title: '分数', width: 160, align: 'center',edit:'text'}
@@ -82,16 +81,16 @@
                 }
             switch(obj.event){
                 case 'submit':
-                    layer.msg('还有课程未进行评分，现在不能提交', {icon: 6});
+                    layer.msg('还有课程未进行评分，现在不能提交', {icon: 2});
                     for (var j = 0; j < dataBak.length; j++) {
                         if(!dataBak[j].score) {
-                            layer.msg('还有课程未进行评分，现在不能提交', {icon: 6});
+                            layer.msg('还有课程未进行评分，现在不能提交', {icon: 2});
                         }else{
                             $("dataBak[j].score").blur(function () {
                                 if(dataBak[j].score < '0'){
-                                    layer.msg('分数不能为负数', {icon: 6});
+                                    layer.msg('分数不能为负数', {icon: 2});
                                 }else if(dataBak[j].score > '100'){
-                                    layer.msg('分数不能为大于100', {icon: 6});
+                                    layer.msg('分数不能为大于100', {icon: 2});
                                 }
                             })
                         }
@@ -117,16 +116,6 @@
                                 }
                             });
                         })
-
-
-
-
-
-
-
-
-
-
                     }
             }
         });

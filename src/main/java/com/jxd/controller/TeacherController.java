@@ -42,6 +42,7 @@ public class TeacherController {
     @Autowired
     ITeacherService teacherService;
 
+    //老师登录后的第一个页面
     @RequestMapping("/teacher")
     public String teacher(HttpServletRequest request, Model model) {
         String tname = "hyh";
@@ -51,11 +52,13 @@ public class TeacherController {
         return "teacher";
     }
 
+    //学生成绩页面
     @RequestMapping("/studentScore")
     public String studentScore() {
         return "studentScore";
     }
 
+    //得到班级下的学生
     @RequestMapping(value = "/getAllStudent", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String getAllStudent(HttpServletRequest request, Model model) {
@@ -88,12 +91,19 @@ public class TeacherController {
         return jsonObject.toString();
     }
 
+    /*//查看学生的详细信息
+    public String getStudentBySid(){
+       Student student = studentService.getStudentBySid(sid);
+       return
+    }*/
+    //老师进行评分页面
     @RequestMapping("/teacherScore")
     public String teacherScore(Model model,Integer sid) {
         model.addAttribute("sid",sid);
         return "teacherScore";
     }
 
+    //查看老师给学生的打分
     @RequestMapping(value = "/getTeacherScore", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String getTeacherScore(HttpServletRequest request) {
@@ -109,6 +119,7 @@ public class TeacherController {
         return jsonObject.toString();
     }
 
+    //修改密码
     @RequestMapping("/updatePassword")
     public String updatePassword() {
         return "updatePassword";
