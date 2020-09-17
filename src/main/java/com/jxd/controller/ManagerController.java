@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,13 +65,40 @@ public class ManagerController {
         //将查找到的学生存入model
         Student student = studentService.getStudentBySid(sid);
         model.addAttribute("student", student);
-        //将查找到的正在使用的评分项存入model
-        List<Analytes> list = managerService.getAnalytes(1);
-        model.addAttribute("aList", list);
         //将查到的部门名称存入model
         Manager manager = managerService.getManagerByMname(user.getUname());
         Dept dept = managerService.getDnameByDeptno(manager.getDeptno());
-        model.addAttribute("dname",dept.getDname());
+        model.addAttribute("dname", dept.getDname());
+        //将查到的该学生的工作评价信息存入model
+        List<WorkEvaluate> list1 = managerService.getWorkEvaluateBySid(sid);
+        model.addAttribute("wList", list1);
+        //将查到的该学生的学校评价信息存入model
+        List<Map<String, Object>> list = managerService.getStudentSchoolEvaluate(sid);
+        model.addAttribute("sList", list);
         return "evaluationPage";
     }
+
+    @RequestMapping(value = "/addWorkEvaluate", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String addWorkEvaluate(Integer sid, Integer dateId, Integer score0, Integer score1, Integer score2,
+                                  Integer score3, Integer score4, Integer totalScore, String evaluatePerson, String evaluateContent) {
+        WorkEvaluate workEvaluate = new WorkEvaluate(dateId, sid, 1, evaluatePerson, score0, totalScore, evaluateContent);
+        WorkEvaluate workEvaluate1 = new WorkEvaluate(dateId, sid, 2, evaluatePerson, score1, totalScore, evaluateContent);
+        WorkEvaluate workEvaluate2 = new WorkEvaluate(dateId, sid, 3, evaluatePerson, score2, totalScore, evaluateContent);
+        WorkEvaluate workEvaluate3 = new WorkEvaluate(dateId, sid, 4, evaluatePerson, score3, totalScore, evaluateContent);
+        WorkEvaluate workEvaluate4 = new WorkEvaluate(dateId, sid, 5, evaluatePerson, score4, totalScore, evaluateContent);
+        List<WorkEvaluate> list = new ArrayList();
+        list.add(workEvaluate);
+        list.add(workEvaluate1);
+        list.add(workEvaluate2);
+        list.add(workEvaluate3);
+        list.add(workEvaluate4);
+        boolean isAdd = managerService.addWorkEvaluate(list);
+        if (isAdd) {
+            return "评价成功";
+        } else {
+            return "评价失败";
+        }
+    }
+
 }

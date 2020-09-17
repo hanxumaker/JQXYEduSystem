@@ -8,12 +8,13 @@ package com.jxd.model;
 public class SchoolEvaluate {
     private Integer id;
     private Integer sid;
-    private String tname;
+    private String tname;//评价人
     private  Integer finalScore;
     private String comment;
 
     public SchoolEvaluate() {
     }
+
 
     public SchoolEvaluate(Integer id, Integer sid, String tname, Integer finalScore, String comment) {
         this.id = id;

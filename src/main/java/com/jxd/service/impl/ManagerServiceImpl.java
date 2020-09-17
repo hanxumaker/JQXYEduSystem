@@ -7,11 +7,13 @@ import com.jxd.dao.IManagerDao;
 import com.jxd.model.Analytes;
 import com.jxd.model.Dept;
 import com.jxd.model.Manager;
+import com.jxd.model.WorkEvaluate;
 import com.jxd.service.IManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description TODO
@@ -61,5 +63,20 @@ public class ManagerServiceImpl implements IManagerService {
     @Override
     public Dept getDnameByDeptno(Integer deptno) {
         return managerDao.getDnameByDeptno(deptno);
+    }
+
+    @Override
+    public List<WorkEvaluate> getWorkEvaluateBySid(Integer sid) {
+        return managerDao.getWorkEvaluateBySid(sid);
+    }
+
+    @Override
+    public List<Map<String, Object>> getStudentSchoolEvaluate(Integer sid) {
+        return managerDao.getStudentSchoolEvaluate(sid);
+    }
+
+    @Override
+    public boolean addWorkEvaluate(List<WorkEvaluate> list) {
+        return managerDao.addWorkEvaluate(list);
     }
 }
