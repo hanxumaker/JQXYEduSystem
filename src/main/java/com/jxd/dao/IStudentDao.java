@@ -33,7 +33,7 @@ public interface IStudentDao {
     /**
      * 根据部门号查询这个部门的所有员工,对部门下的员工进行模糊查询
      *
-     * @param deptno
+     * @param deptno 部门编号
      * @param sname
      * @return
      */
@@ -49,10 +49,12 @@ public interface IStudentDao {
      * @return 查到的员工
      */
     List<Student> getStudents(@Param("count") Integer count, @Param("pageSize") Integer pageSize, @Param("sname") String sname, @Param("deptno") Integer deptno);
+
     /**
-     * 根据学生id查找学生
-     * @param sid 要查找的学生id
-     * @return 查找到的学生
+     * 根据员工id查找员工
+     *
+     * @param sid 要查找的员工id
+     * @return 查找到的员工
      */
     Student getStudentBySid(Integer sid);
 
@@ -88,4 +90,12 @@ public interface IStudentDao {
      */
     boolean delStu(Integer sid);
 
+
+    /**
+     * @Description 提交学校评价表后，修改学生状态
+     * @param sid
+     * @Return 是否修改成功
+     * @Date 2020/9/16 12:02
+     */
+    boolean editStuSta(@Param("sid")Integer sid,@Param("state")Integer state,@Param("deptno")Integer deptno);
 }

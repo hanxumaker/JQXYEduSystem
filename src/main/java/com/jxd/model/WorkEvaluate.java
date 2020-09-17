@@ -6,7 +6,8 @@ package com.jxd.model;
  * @Date 2020/9/12 9:41
  */
 public class WorkEvaluate {
-   private Integer dateId;//评价时间
+    private Integer id;//评价id
+    private Integer dateId;//评价时间
     private Integer sid;//学生id
     private Integer aid;//评价分项id
     private String evaluatePerson;//评价人
@@ -82,4 +83,13 @@ public class WorkEvaluate {
     public void setEvaluateContent(String evaluateContent) {
         this.evaluateContent = evaluateContent;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }
+

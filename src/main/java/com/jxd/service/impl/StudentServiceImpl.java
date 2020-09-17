@@ -67,4 +67,9 @@ public class StudentServiceImpl implements IStudentService {
         return studentDao.delStu(sid);
     }
 
+    @Override
+    public boolean editStuSta(Integer sid, Integer state,Integer deptno) {
+        return studentDao.editStuSta(sid,state,deptno);
+    }
+
 }

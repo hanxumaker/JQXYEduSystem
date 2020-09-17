@@ -37,9 +37,8 @@
 </script>
 <script type="text/html" id="barDemo">
     <div class="layui-input-inline">
-        <button class="layui-btn layui-btn-sm" lay-event="score">评分</button>
+        <button class="layui-btn layui-btn-sm" lay-event="score" id="score">评分</button>
         <button class="layui-btn layui-btn-sm" lay-event="select">查看</button>
-        <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
     </div>
 </script>
 <script>
@@ -53,20 +52,21 @@
             elem: '#demo'
             ,toolbar: '#toolbarDemo'//添加工具栏
             ,height: 380
-            ,width:1100
+            ,width:860
             ,url: '/getAllStudent' //数据接口
             ,page:true //开启分页
             ,limit:5 // 每页显示几条数据
             ,limits:[5,10,15,20]
             ,cols: [[ //表头
-                {type:'checkbox'}
-                ,{field: 'sid', title: '学号', width:150, sort: true,hide:true,align:'center',}
-                ,{type:'numbers',title:'学生序号',width:150,align:'center'}
+                {field: 'sid', title: '学号', width:150, sort: true,hide:true,align:'center',}
+                ,{type:'numbers',title:'学生序号',width:100,align:'center'}
                 ,{field: 'sname', title: '姓名', width:150,align:'center'}
                 ,{field: 'sex', title: '性别', width:150, sort:true,align:'center'}
                 ,{field: 'birthday', title: '出生年份', width:150,align:'center'}
                 ,{field: 'phone', title: '电话号码', width:150,align:'center'}
-                ,{field: '', title: '操作', width:250, sort:true,align:'center',toolbar:'#barDemo'}
+                ,{field: 'state', title: '学生状态', hide:true,width:150,align:'center'}
+                ,{field: 'deptno', title: '部门编号', hide:true,width:150,align:'center'}
+                ,{field: '', title: '操作', width:150, sort:true,align:'center',toolbar:'#barDemo'}
             ]]
         });
         //监听事件,监听lay-filter="test"的元素的工具栏
@@ -89,30 +89,48 @@
 
         //行监听事件
         table.on('tool(test)', function(obj){
-            var data = obj.data;
+            var data = obj.data;//得到这一行的值
+            var sid = data.sid;
             switch(obj.event) {
-                case 'score':
+                case 'select':
                     layer.open({
                         type:2,//弹出完整div;type:1弹出隐藏div
-                        title:'老师评分',
-                        content:'teacherScore',
+                        title:'学生成绩',
+                        content:'selectStudentScore?sid=' + sid,
                         shadeClose:true,//点击遮罩，关闭弹框
-                        area:['500px','360px']
+                        area:['500px','440px']
                     });
+                    break;
+                case 'score':
+                    if(data.state > 5){
+                        layer.msg(data.sname + "已经毕业，无法打分")
+                    }else{
+                        layer.open({
+                            type:2,//弹出完整div;type:1弹出隐藏div
+                            title:'老师评分',
+                            content:'teacherScore?sid=' + sid,
+                            shadeClose:true,//点击遮罩，关闭弹框
+                            area:['450px','450px']
+                        });
+                    }
                     break;
                 case 'update':
                     var id = data.id;
-                    layer.open({
-                        type:2,//弹出完整div;type:1弹出隐藏div
-                        title:'学生编辑',
-                        content:'getStudentById?id=' + id,
-                        shadeClose:true,//点击遮罩，关闭弹框
-                        area:['380px','460px'],
-                        end:function () {
-                            //刷新当前页
-                            $(".layui-laypage-btn").click();
-                        }
-                    });
+                    if(data.state > 5){
+                        layer.msg(data.sname + "已经毕业，无法修改分数")
+                    }else {
+                        layer.open({
+                            type:2,//弹出完整div;type:1弹出隐藏div
+                            title:'分数编辑',
+                            content:'getStudentById?id=' + id,
+                            shadeClose:true,//点击遮罩，关闭弹框
+                            area:['380px','460px'],
+                            end:function () {
+                                //刷新当前页
+                                $(".layui-laypage-btn").click();
+                            }
+                        });
+                    }
                     break;
             }
         });

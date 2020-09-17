@@ -43,4 +43,12 @@ public interface ITeacherDao {
      * @return 是否编辑成功
      */
     boolean editTea(Teacher teacher);
+
+    /**
+     * @Description 修改老师密码
+     * @param tname
+     * @Return 是否修改成功
+     * @Date 2020/9/16 9:03
+     */
+    boolean updatePwd(@Param("newPwd") String newPwd,@Param("tname")String tname);
 }

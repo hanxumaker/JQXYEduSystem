@@ -44,13 +44,13 @@ public interface IStudentService {
      * @param pageSize 显示几条数据
      * @param sname 进行模糊查询的名字
      * @param deptno 部门编号
-     * @return 查到的学生
+     * @return 查到的员工
      */
     List<Student> getStudents(Integer count,Integer pageSize,String sname,Integer deptno);
 
     /**
-     * 根据学生id查找学生
-      * @param sid 要查找的学生id
+     * 根据员工id查找该员工
+      * @param sid 要查找的员工id
      * @return
      */
     Student getStudentBySid(Integer sid);
@@ -86,4 +86,11 @@ public interface IStudentService {
      * @return
      */
     boolean delStu(Integer sid);
+    /**
+    * @Description 提交学校评价表后，修改学生状态
+    * @param sid
+    * @Return 是否修改成功
+    * @Date 2020/9/16 12:02
+    */
+    boolean editStuSta(Integer sid,Integer state,Integer deptno);
 }

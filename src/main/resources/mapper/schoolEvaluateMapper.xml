@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.ISchoolEvaluateDao">
+    <!--List<Map<String,String>> getStudentScoreBySid(Integer sid);-->
+    <select id="getStudentScoreBySid" resultType="map">
+        select co.coursename coursename,g.score score from course co inner join grade g
+        on co.courseid = g.courseid
+        where sid=#{sid}
+    </select>
+    <!--SchoolEvaluate selectStuEvaBySid(Integer sid);-->
+    <select id="selectStuEvaBySid" resultType="SchoolEvaluate">
+        select finalscore,comment from schoolevaluate where sid=#{sid}
+    </select>
+    <!--boolean addSchEva(SchoolEvaluate schoolEvaluate);-->
+    <insert id="addSchEva">
+        insert into schoolevaluate(sid,tname,finalscore,comment) values
+        (#{sid},#{tname},#{finalScore},#{comment})
+    </insert>
 </mapper>

@@ -3,7 +3,7 @@
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.IStudentDao">
     <sql id="BaseSql">
-     select sid,sname,sex,birthday,phone
+     select sid,sname,sex,birthday,phone,state,deptno
     </sql>
     <sql id="BaseSql1">
      select sid,sname,sex,nation,birthday,address,married,phone,idcard,school,major,photo,state
@@ -62,6 +62,10 @@
         <include refid="BaseSql1"></include> from student
         where sid=#{sid}
     </select>
+    <!--boolean editStuSta(Integer sid,Integer state,Integer deptno);-->
+    <update id="editStuSta">
+        update student set state = #{state},deptno=#{deptno} where sid=#{sid}
+    </update>
 
     <!--List<Student> getAllStudents(String sname,Integer cid, Integer page,Integer limit);-->
     <select id="getAllStudents1" resultType="Student">

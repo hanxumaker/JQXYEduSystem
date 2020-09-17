@@ -4,9 +4,8 @@
 <mapper namespace="com.jxd.dao.IManagerDao">
 
     <sql id="BaseSql">
-       select id,mname,deptno from manager
+        select id,mname,deptno from manager
     </sql>
-
     <!--List<Teacher> getAllTeachers-->
     <select id="getAllTeachers1" resultType="Manager">
         <include refid="BaseSql"></include>
@@ -39,6 +38,13 @@
     <update id="editTea">
         update manager set mname = #{mname} where id = #{id}
     </update>
+    <!-- /**
+     * 根据已登录的经理的名字查该经理
+     *
+     * @param uname 登录的经理的名字
+     * @return 返回该经理
+     */
+    Manager getManagerByMname(String uname);-->
 <select id="getManagerByMname" resultType="Manager">
     select id,mname,deptno from manager where mname=#{mname}
 </select>
@@ -60,4 +66,69 @@
     <select id="getDnameByDeptno" resultType="Dept">
         select deptno,dname from dept where deptno=#{deptno}
     </select>
+    <!-- /**
+     * 根据员工id查找员工的工作评价信息
+     * @param sid 要查找的员工id
+     * @return 查找到的工作评价信息
+     */
+     List<WorkEvaluate> getWorkEvaluateBySid(Integer sid);-->
+    <select id="getWorkEvaluateBySid" resultMap="WorkEvaluateMap">
+     select * from workevaluate where sid=#{sid}
+    </select>
+    <resultMap id="WorkEvaluateMap" type="WorkEvaluate">
+        <id column="id" property="id"></id>
+        <result property="sid" column="sid"></result>
+        <result property="evaluatePerson" column="evaluatePerson"></result>
+        <result property="evaluateScore" column="evaluateScore"></result>
+        <result property="totalScore" column="totalScore"></result>
+        <result property="evaluateContent" column="evaluateContent"/>
+        <result property="dateId" column="dateId"></result>
+    </resultMap>
+    <!-- /**
+         * 根据员工id查找该员工在学校时的评价信息
+         * @param sid 要查找的员工id
+         * @return 评价信息
+         */
+        List<Map<String,Object>> getStudentSchoolEvaluate(Integer sid);-->
+    <select id="getStudentSchoolEvaluate" resultType="map">
+        select s.sid,s.sname sname,cl.classname classname,co.coursename coursename,g.score score,sch.tname tname,sch.finalscore finalscore,sch.comment comment
+from student s inner join class cl on s.cid=cl.classid
+inner join grade g on s.sid=g.sid
+inner join course co on g.courseid=co.courseid
+inner join schoolevaluate sch on g.sid=sch.sid where s.sid=#{sid}
+    </select>
+    <!-- /**
+     * 添加一个员工的工作评价信息
+      * @param list 要添加的评价信息
+     * @return 是否添加成功
+     */
+    boolean addWorkEvaluate(List<WorkEvaluate> list);-->
+    <insert id="addWorkEvaluate">
+        insert into workevaluate (dateid,sid,aid,evaluateperson,evaluatescore,totalscore,evaluatecontent)
+        values
+        <foreach collection="list" item="workEvaluate" separator=",">
+            (#{workEvaluate.dateId},#{workEvaluate.sid},#{workEvaluate.aid},#{workEvaluate.evaluatePerson}
+            ,#{workEvaluate.evaluateScore},#{workEvaluate.totalScore},#{workEvaluate.evaluateContent})
+        </foreach>
+    </insert>
+    <!--/**
+     * 根据员工id修改员工的状态
+      * @param sid 员工id
+     * @param state 要修改成的状态
+     * @return 是否修改成功
+     */
+    boolean editStudentState(Integer sid,Integer state);-->
+    <update id="editStudentState">
+        update student set state=#{state} where sid=#{sid}
+    </update>
+    <!-- /**
+     * 根据经理名字修改经理密码
+      * @param username 经理的登录的用户名
+     * @param password 新密码
+     * @return 是否修改成功
+     */
+    boolean updateManagerPwd(@Param("username") String username,@Param("password") String password);-->
+<update id="updateManagerPwd">
+    update user set password=#{password} where uname=#{uname}
+</update>
 </mapper>

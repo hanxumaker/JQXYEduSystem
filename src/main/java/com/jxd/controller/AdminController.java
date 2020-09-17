@@ -239,7 +239,7 @@ public class AdminController {
         count = teacherService.getAllTeachers1(name).size();
 
 
-        //将list转换为json数组
+        //将list转换为 json数组
         net.sf.json.JSONArray jsonArray = JSONArray.fromObject(list);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", 0);

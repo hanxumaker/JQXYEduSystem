@@ -31,7 +31,10 @@
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a href="myStudent" target="mFrame">我的学生</a>
+                    <a href="studentScore" target="mFrame">学生成绩</a>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="studentEvaluate" target="mFrame">学生评价</a>
                 </li>
                 <li class="layui-nav-item">
                     <a href="updatePassword" target="mFrame">修改密码</a>
@@ -44,9 +47,7 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;"><iframe class="layadmin-iframe"
                                             style="width: 100%; height:90%;"
-                                            name="mFrame" scrolling="false" src="myStudent"></iframe></div>
-        <div style="padding: 15px;"><iframe frameborder="1" class="layadmin-iframe" style="width: 100%; height:90%;"
-                                            name="mFrame" scrolling="false"></iframe></div>
+                                            name="mFrame" scrolling="false" src="studentScore"></iframe></div>
     </div>
 </div>
 <script>

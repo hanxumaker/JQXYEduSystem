@@ -26,7 +26,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">老师姓名</label>
             <div class="layui-input-inline">
-                <input type="text" name="ename" id="ename" required lay-verify="required" placeholder="${sessionScope.tname}" autocomplete="off" class="layui-input">
+                <input type="text" name="ename" id="ename" required lay-verify="required" value="${sessionScope.tname}" readonly autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -55,7 +55,36 @@
         var form = layui.form;
         var layer = layui.layer;
         form.render();
+        $ = layui.jquery;
+        //点击提交按钮
+        $("#update").click(function (){
+            $.ajax({
+                url:'updatePwd',
+                type:'post',
+                data:{
+                    newPwd:$("#newPwd").val()
+                },
+                success:function (data) {
+                    if(data){
+                        layer.msg('修改成功,请重新登录');
+                    }else{
+                        layer.msg('修改失败');
+                    }
+                },
+                error:function (data) {
+                    layer.msg("执行失败");
+                }
+            })
+        })
+    ///监听提交
+    form.on('submit(formDemo)', function(data){
+        layer.msg(JSON.stringify(data.field));
+        //return false;
     });
+    });
+    var closeAdd = function () {
+        parent.location.reload();//刷新父页面
+    }
 </script>
 </body>
 </html>

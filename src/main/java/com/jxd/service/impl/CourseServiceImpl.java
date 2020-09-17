@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description TODO
@@ -17,8 +18,9 @@ import java.util.List;
 public class CourseServiceImpl implements ICourseService {
     @Autowired
     ICourseDao courseDao;
+
     @Override
-    public List<Course> getAllCourseByCid(Integer cid) {
+    public List<Map<String, String>> getAllCourseByCid(Integer cid) {
         return courseDao.getAllCourseByCid(cid);
     }
 
