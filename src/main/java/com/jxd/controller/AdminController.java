@@ -149,6 +149,12 @@ public class AdminController {
         return "changeTeacher";
     }
 
+    @RequestMapping(value = "/ClassToCourse")
+    public String ClassToCourse(){
+
+        return "ClassToCourse";
+    }
+
     @RequestMapping(value = "/changeTea" , produces = "text/html;charset=utf-8")
     @ResponseBody
     public String changeTea(Teacher teacher){
