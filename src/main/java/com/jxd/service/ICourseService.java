@@ -10,6 +10,5 @@ public interface ICourseService {
     * @Date 2020/9/13 13:30
     */
     List<Map<String,String>> getAllCourseByCid(Integer cid);
-
 }
 

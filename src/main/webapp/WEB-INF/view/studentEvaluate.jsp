@@ -18,6 +18,9 @@
         .layui-icon-ok{
             margin-top: 10px;
         }
+         .layui-table-tool-temp {
+             padding-right: 0px;
+         }
     </style>
 </head>
 <body>
@@ -46,6 +49,7 @@
         var table = layui.table;
         var layer = layui.layer;
         var $ = layui.jquery;
+        var num = 0;
 
         //第一个实例
         table.render({
@@ -66,16 +70,33 @@
                 ,{field: 'phone', title: '电话号码', width:150,align:'center'}
                 ,{field: 'state', title: '学生状态', width:155,align:'center',
                     templet: function (data) {
-                        if (data.state == 5) {
-                            return "培训中"
-                        } else {
+                        if (data.state > 5) {
                             return "已毕业"
+                        } else {
+                            return "培训中"
                         }
                     }
                 }
                 ,{field: 'deptno', title: '部门编号', hide:true,width:150,align:'center'}
                 ,{field: '', title: '操作', width:150, sort:true,align:'center',toolbar:'#barDemo'}
-            ]]
+            ]],
+            done:function (res, curr, count) {
+                let tableView = this.elem.next();// 当前表格渲染之后的视图
+                layui.each(res.data, function (i, item) { //遍历整个表格数据
+                    if (item.state == 6) { //检测学生的状态
+                        num++
+                    }
+                });
+                if(num == count){ //代表班内所有的学生均已毕业
+                    $.ajax({
+                        url:'updateTeaStateByStu',//修改老师的状态
+                        type:'post',
+                        data:{
+
+                        },
+                    })
+                }
+            }
         });
         //监听事件,监听lay-filter="test"的元素的工具栏
         table.on('toolbar(test)', function(obj){
@@ -104,7 +125,7 @@
                     layer.open({
                         type:2,//弹出完整div;type:1弹出隐藏div
                         title:'学生评价',
-                        content:'selectStudentEvaluate?sid=' + sid,
+                        content:'selectStudentEvaluate?sid1=' + sid,
                         shadeClose:true,//点击遮罩，关闭弹框
                         area:['500px','360px']
                     });
@@ -113,8 +134,11 @@
                     var state = data.state;
                     var deptno = data.deptno;
                     if(data.state > 5) {
-                        layer.msg(data.sname + "已经毕业，无法进行评价")
-                    }else{
+                        layer.msg(data.sname + "已经毕业，无法进行评价",{icon: 2})
+                    }else if(data.state == 5){
+                        layer.msg(data.sname + "课程还未上完，无法进行评价",{icon: 2})
+                    }
+                    else{
                         layer.open({
                             type:2,//弹出完整div;type:1弹出隐藏div
                             title:'进行评价',

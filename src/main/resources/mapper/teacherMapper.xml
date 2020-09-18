@@ -42,4 +42,8 @@
     <update id="updatePwd">
         update user set password=#{newPwd} where uname=#{tname}
     </update>
+    <!-- boolean updateTeaStateByStu(String tname,Integer state);-->
+    <update id="updateTeaStateByStu">
+        update teacher set state=#{state} where tname=#{tname}
+    </update>
 </mapper>

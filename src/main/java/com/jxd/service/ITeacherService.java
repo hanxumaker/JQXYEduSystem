@@ -48,4 +48,12 @@ public interface ITeacherService {
  * @Date 2020/9/16 9:03
  */
  boolean updatePwd(String newPwd,String tname);
+
+ /**
+ * @Description 当老师班内学生都已毕业时，改变老师的状态
+ * @param tname
+ * @Return 是否修改成功
+ * @Date 2020/9/17 20:00
+ */
+ boolean updateTeaStateByStu(String tname,Integer state);
 }

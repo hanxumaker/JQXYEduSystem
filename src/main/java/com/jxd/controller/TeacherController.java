@@ -25,7 +25,7 @@ import java.util.Map;
  * @Date 2020/9/11 8:03
  */
 @Controller
-@SessionAttributes({"tname","cid","sid","state","deptno"})//sid:学生成绩的id
+@SessionAttributes({"tname","cid","sid","state","deptno","state1"})//state1:学生成绩的状态
 public class TeacherController {
     @Autowired
     IStudentService studentService;
@@ -91,14 +91,18 @@ public class TeacherController {
         return jsonObject.toString();
     }
 
-    /*//查看学生的详细信息
-    public String getStudentBySid(){
-       Student student = studentService.getStudentBySid(sid);
-       return
-    }*/
+    //查看学生的详细信息
+    @RequestMapping("/studentInByCid")
+    public String getStudentBySid(Model model,Integer sids){
+       Student student = studentService.getStudentBySid(sids);
+       model.addAttribute("student",student);
+       return "studentInByCid";
+    }
     //老师进行评分页面
     @RequestMapping("/teacherScore")
-    public String teacherScore(Model model,Integer sid) {
+    public String teacherScore(Integer state,Model model,Integer sid,Integer deptno) {
+        model.addAttribute("state1",state);
+        model.addAttribute("deptno",deptno);
         model.addAttribute("sid",sid);
         return "teacherScore";
     }
@@ -172,10 +176,13 @@ public class TeacherController {
     }
 
     //接收前台传来的已经打分的数据，将其批量插入到成绩表中
-    @RequestMapping(value = "/gradeList", produces = "text/html;charset=utf-8")
+    @RequestMapping("/gradeList")
     @ResponseBody
-    public String addStuScore(String stuScore,Integer sid) {
+    public String addStuScore(HttpServletRequest request,String stuScore,Integer sid) {
         List<Grade> list = new ArrayList<>();
+        HttpSession session = request.getSession();
+        int state = (int) session.getAttribute("state1");
+        int deptno = (int) session.getAttribute("deptno");
         JSONArray jsonArray = JSONArray.fromObject(stuScore);
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -184,21 +191,23 @@ public class TeacherController {
             list.add(grade);
         }
         boolean isAdd = gradeService.addStudentScore(list);
-        if (isAdd) {
-            return "提交成功";
-        } else {
-            return "提交失败";
+        if(isAdd){
+            boolean isUpdate = studentService.editStuSta(sid,state-1,deptno);
         }
+        return "isAdd";
     }
 
     //修改老师密码
     @RequestMapping("/updatePwd")
-    @ResponseBody
     public String updatePwd(HttpServletRequest request,String newPwd){
         HttpSession session = request.getSession();
         String tname = (String)session.getAttribute("tname");
         boolean isUpdate = teacherService.updatePwd(newPwd,tname);
-        return "isUpdate";
+        if(isUpdate){
+            return "login";
+        }else{
+            return "updatePwd";
+        }
     }
 
     //提交评价
@@ -212,8 +221,17 @@ public class TeacherController {
         SchoolEvaluate schoolEvaluate = new SchoolEvaluate(sid,tname,finalScore,comment);
         boolean isAdd = schoolEvaluateService.addSchEva(schoolEvaluate);
         if(isAdd){
-            boolean isUpdate = studentService.editStuSta(sid,state+1,deptno+1);
+            boolean isUpdate = studentService.editStuSta(sid,state+2,deptno);
         }
+        return "isUpdate";
+    }
+
+    @RequestMapping("/updateTeaStateByStu")
+    @ResponseBody
+    public String updateTeaStateByStu(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String tname = (String)session.getAttribute("tname");
+        boolean isUpdate = teacherService.updateTeaStateByStu(tname,1);
         return "isUpdate";
     }
 }
