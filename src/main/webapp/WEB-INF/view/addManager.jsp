@@ -17,6 +17,11 @@
     <title>添加经理</title>
     <link href="../../static/layui/css/layui.css" rel="stylesheet">
     <script src="../../static/layui/layui.js" ></script>
+    <style>
+        .layui-table-tool-temp {
+            padding-right: 0px;
+        }
+    </style>
 </head>
 <body>
 <form class="layui-form" >

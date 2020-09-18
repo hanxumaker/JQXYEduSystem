@@ -48,4 +48,9 @@ public class CourseServiceImpl implements ICourseService {
     public boolean updateCou1(Integer id) {
         return courseDao.updateCou1(id);
     }
+
+    @Override
+    public List<Integer> getCourseId() {
+        return courseDao.getCourseId();
+    }
 }

@@ -86,6 +86,13 @@ public interface IStudentService {
      * @return
      */
     boolean delStu(Integer sid);
+
+    /**
+     * 更新学生的信息
+     * @param student
+     * @return
+     */
+    boolean updateStu(Student student);
     /**
     * @Description 提交学校评价表后，修改学生状态
     * @param sid

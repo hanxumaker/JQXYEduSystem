@@ -48,5 +48,20 @@ public class TeacherServiceImpl implements ITeacherService {
         return teacherDao.updatePwd(newPwd,tname);
     }
 
+    @Override
+    public List<Teacher> getFreeTeacher() {
+        return teacherDao.getFreeTeacher();
+    }
+
+    @Override
+    public boolean teacherToCla(Teacher teacher) {
+        return teacherDao.teacherToCla(teacher);
+    }
+
+    @Override
+    public boolean changeTea(Teacher teacher) {
+        return teacherDao.changeTea(teacher);
+    }
+
 
 }

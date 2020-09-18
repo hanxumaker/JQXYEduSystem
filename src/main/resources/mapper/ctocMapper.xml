@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace目前可以自定义要唯一，将来面向接口编程时对应dao接口，一 个mapper相当于一个dao接口的实现类 -->
 <mapper namespace="com.jxd.dao.ICtocDao">
+
+    <!--boolean addCourseToClass(List<Ctoc> ctocList)-->
+    <insert id="addCourseToClass">
+        insert into ctoc(cid,courseid,state) values
+        <foreach collection="list" item="ctoc" separator=",">
+            (#{ctoc.cid},#{ctoc.courseId},#{ctoc.state})
+        </foreach>
+    </insert>
 </mapper>

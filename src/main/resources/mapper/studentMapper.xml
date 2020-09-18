@@ -107,4 +107,14 @@
     <delete id="delStu">
         delete from student where sid = #{sid}
     </delete>
+
+    <!--boolean updateStu(Student student)
+    更新学生的信息-->
+
+    <update id="updateStu">
+        update student
+        set sname = #{sname},sex = #{sex},nation = #{nation},birthday = #{birthday},address = #{address},
+        married = #{married},phone = #{phone},idcard = #{idCard},school = #{school},major = #{major},photo = #{photo}
+        where sid = #{sid}
+    </update>
 </mapper>

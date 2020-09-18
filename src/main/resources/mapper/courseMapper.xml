@@ -33,4 +33,9 @@
     <update id="updateCou1">
         update course set state = 0 where courseid = #{id}
     </update>
+
+    <!--Integer getCourseId();-->
+    <select id="getCourseId" resultType="Integer">
+        select  courseid from course where state = 0
+    </select>
 </mapper>

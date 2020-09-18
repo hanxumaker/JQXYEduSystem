@@ -68,6 +68,11 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
+    public boolean updateStu(Student student) {
+        return studentDao.updateStu(student);
+    }
+
+    @Override
     public boolean editStuSta(Integer sid, Integer state,Integer deptno) {
         return studentDao.editStuSta(sid,state,deptno);
     }

@@ -42,4 +42,19 @@
     <update id="updatePwd">
         update user set password=#{newPwd} where uname=#{tname}
     </update>
+
+    <!--List<Teacher> getFreeTeacher() -->
+    <select id="getFreeTeacher" resultType="Teacher">
+        select tid,tname from teacher where state = 1
+    </select>
+
+    <!--boolean teacherToCla(Teacher teacher)-->
+    <update id="teacherToCla">
+        update teacher set state = #{state},cid = #{cid} where tid = #{tid}
+    </update>
+
+    <!--changeTea(Teacher teacher)-->
+    <update id="changeTea">
+        update teacher set state = 1,cid = null where cid = #{cid}
+    </update>
 </mapper>

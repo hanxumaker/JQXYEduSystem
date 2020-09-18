@@ -11,7 +11,7 @@ public interface ICourseDao {
      * @Return
      * @Date 2020/9/13 13:30
      */
-    List<Course> getAllCourseByCid(Integer cid);
+    List<Map<String,String>> getAllCourseByCid(Integer cid);
 
     /**
      * 得到全部的课程
@@ -47,5 +47,11 @@ public interface ICourseDao {
      */
     boolean updateCou1(Integer id);
 
-    List<Map<String,String>> getAllCourseByCid(Integer cid);
+    /**
+     * 得到必选课的courseid
+     * @return
+     */
+    List<Integer> getCourseId();
+
+
 }

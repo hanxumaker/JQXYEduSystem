@@ -22,13 +22,17 @@
         .layui-table-tool-self {
             display: none;
         }
-    </style>
-    <style>
+        .layui-table-tool-temp {
+            padding-right: 0px;
+        }
         .layui-table-cell .layui-form-checkbox[lay-skin="primary"] {
             top: 50%;
             transform: translateY(-50%)
         }
+
     </style>
+
+
 </head>
 <body>
 <div align="center">

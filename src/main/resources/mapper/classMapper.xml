@@ -6,4 +6,19 @@
     <select id="getAllClass" resultType="Class">
         select cid,cname from class
     </select>
+
+    <!--List<Map<String, String>> getAllClasses()-->
+    <select id="getAllClasses" resultType="Map">
+        select c.cid cid,c.cname cname,t.tname tname ,t.tid tid from class c left join teacher t on
+        c.cid = t.cid
+    </select>
+
+    <!--boolean addCla(String cname)-->
+    <insert id="addCla">
+        insert into class(cname) values (#{cname})
+    </insert>
+    <!--Integer getMaxCid();-->
+    <select id="getMaxCid" resultType="Integer">
+       select max(cid) from class
+    </select>
 </mapper>

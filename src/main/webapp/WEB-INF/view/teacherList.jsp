@@ -40,6 +40,19 @@
             --%>
         </div>
     </div>
+    <style>
+        .layui-table-tool-self {
+            display: none;
+        }
+        .layui-table-tool-temp {
+            padding-right: 0px;
+        }
+        .layui-table-cell .layui-form-checkbox[lay-skin="primary"] {
+            top: 50%;
+            transform: translateY(-50%)
+        }
+
+    </style>
 </script>
 <script type="text/html" id="toolbarDemo1">
     <div class="layui-btn-container layui-input-inline">

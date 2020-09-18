@@ -51,4 +51,24 @@ public interface ITeacherDao {
      * @Date 2020/9/16 9:03
      */
     boolean updatePwd(@Param("newPwd") String newPwd,@Param("tname")String tname);
+
+    /**
+     * 找到空闲老师
+     * @return
+     */
+    List<Teacher> getFreeTeacher();
+
+    /**
+     * 修改老师的状态，所带班级
+     * @param teacher
+     * @return
+     */
+    boolean teacherToCla(Teacher teacher);
+
+    /**
+     * 把正在带班的老师空闲下来
+     * @param teacher
+     * @return
+     */
+    boolean changeTea(Teacher teacher);
 }

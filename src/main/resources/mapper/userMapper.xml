@@ -46,7 +46,7 @@
      */
     User searchUser(User user);-->
     <select id="searchUser" resultType="User">
-        select userid,uname,password,role from user where
+        select id,uname,password,role from user where
         uname=#{uname} and password=#{password}
     </select>
 
