@@ -3,6 +3,7 @@ package com.jxd.controller;
 import com.jxd.model.Grade;
 import com.jxd.model.SchoolEvaluate;
 import com.jxd.model.Student;
+import com.jxd.model.User;
 import com.jxd.service.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -42,19 +43,13 @@ public class TeacherController {
     @Autowired
     ITeacherService teacherService;
 
-    //老师登录后的第一个页面
-    @RequestMapping("/teacher")
-    public String teacher(HttpServletRequest request, Model model) {
-        String tname = "hyh";
-        //String tname = "wmm";
-        //String tname = request.getParameter("tname");
-        model.addAttribute("tname", tname);
-        return "teacher";
-    }
-
     //学生成绩页面
     @RequestMapping("/studentScore")
-    public String studentScore() {
+    public String studentScore(HttpServletRequest request,Model model) {
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("User");
+        String tname = user.getUname();
+        model.addAttribute("tname", tname);
         return "studentScore";
     }
 

@@ -1,5 +1,6 @@
 package com.jxd.dao;
 
+import com.jxd.model.Course;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

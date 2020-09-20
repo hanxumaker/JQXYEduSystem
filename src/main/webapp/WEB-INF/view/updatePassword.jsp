@@ -16,7 +16,7 @@
             content:"*";
             color:red;
             position: absolute;
-            top:5px; left:15px;
+            top:10px; left:45px;
         }
     </style>
 </head>
