@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: lenovo
@@ -20,6 +21,9 @@
             top: 50%;
             transform: translateY(-50%)
         }
+        .layui-table-tool-temp{
+            padding-right:0px;
+        }
     </style>
 </head>
 <body>
@@ -32,7 +36,7 @@
 <script type="text/html" id="toolbarDemo">
     <div align="right">
         <div class="layui-input-inline">
-            <input type="text" id="sname" name="sname" placeholder="请输入职工姓名" class="layui-input">
+            <input type="text" id="sname" name="sname" placeholder="请输入员工姓名" class="layui-input">
         </div>
         <button class="layui-btn layui-btn-sm" lay-event="query">查询</button>
     </div>
@@ -48,7 +52,7 @@
         //实现一个表格实例
         table.render({
             elem: '#demo'
-            , width: 775
+            , width: 790
             , toolbar: '#toolbarDemo'//添加工具栏
             , url: '/getStudentsByDeptno' //数据接口
             , where: {
@@ -80,7 +84,7 @@
                         }
                     }
                 }
-                , {fixed: 'right', title: '操作', width: 100, align: 'center', toolbar: '#barDemo'}
+                , {fixed: 'right', title: '操作', width: 120, align: 'center', toolbar: '#barDemo'}
             ]]
         });
 
@@ -105,7 +109,7 @@
             var data = obj.data //获得当前行数据
                 , layEvent = obj.event; //获得 lay-event 对应的值
             if (layEvent === 'check') {
-                location.href = "toEvaluationPage?sid=" + data.sid;
+                location.href = "toCheckEvaluation?sid=" + data.sid;
             }
         });
     });

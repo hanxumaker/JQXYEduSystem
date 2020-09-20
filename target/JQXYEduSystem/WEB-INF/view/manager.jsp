@@ -5,12 +5,16 @@
   Time: 11:34
   To change this template use File | Settings | File Templates.
 --%>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/" + path;
+%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>经理页面</title>
-    <link href="../../static/layui/css/layui.css" rel="stylesheet">
-    <script src="../../static/layui/layui.js"></script>
+    <link href="<%=basePath%>../../static/layui/css/layui.css" rel="stylesheet">
+    <script src="<%=basePath%>../../static/layui/layui.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -20,7 +24,6 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">欢迎您${sessionScope.User.uname}
                 <img src="../../static/imgs/2.jpg" class="layui-nav-img">
-
             </li>
             <li class="layui-nav-item"><a href="login">退出</a></li>
         </ul>
@@ -29,12 +32,13 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+            <ul class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item">
-                    <a href="toGetStudentByDeptno" target="mFrame">部门员工</a>
+                    <a href="toGetStudentByDeptno" target="mFrame">员工列表</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="toUpdateManagerPwd" target="mFrame" >修改密码</a></li>
+                    <a href="toUpdateManagerPwd" target="mFrame">修改密码</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -43,15 +47,16 @@
         <!-- 内容主体区域 -->
         <div>
             <iframe style="display: block;overflow: hidden" frameborder="0" class="layadmin-iframe"
-                    width="100%" height="100%" name="mFrame" scrolling="false"></iframe>
+                    width="100%" height="100%" name="mFrame" scrolling="false" src="/toGetStudentByDeptno"></iframe>
         </div>
     </div>
 </div>
 <script>
     //JavaScript代码区域
-    layui.use('element', function () {
+    layui.use('element','tab', function () {
         var element = layui.element;
-    });
+        $ = layui.jquery;
+    })
 </script>
 </body>
 </html>

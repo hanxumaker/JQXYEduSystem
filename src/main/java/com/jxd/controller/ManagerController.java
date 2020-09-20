@@ -56,7 +56,7 @@ public class ManagerController {
         return jsonObject;
     }
 
-    @RequestMapping("/toEvaluationPage")
+    @RequestMapping("/toCheckEvaluation")
     public String toEvaluationPage(@ModelAttribute("User") User user, Integer sid, Model model) {
         //将查找到的员工存入model
         Student student = studentService.getStudentBySid(sid);
@@ -71,9 +71,8 @@ public class ManagerController {
         //将查到的该员工的学校评价信息存入model
         List<Map<String, Object>> list = managerService.getStudentSchoolEvaluate(sid);
         model.addAttribute("sList", list);
-        return "evaluationPage";
+        return "checkEvaluationPage";
     }
-
     @RequestMapping(value = "/addWorkEvaluate", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String addWorkEvaluate(Integer state, Integer sid, Integer dateId, Integer score0, Integer score1, Integer score2,
