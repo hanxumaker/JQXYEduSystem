@@ -73,19 +73,6 @@ public interface ITeacherService {
      * @return
      */
     boolean changeTea(Teacher teacher);
- /**
-  * 编辑一个老师的信息
-  * @param teacher
-  * @return 是否编辑成功
-  */
- boolean editTea(Teacher teacher);
- /**
- * @Description 修改老师密码
- * @param tname
- * @Return 是否修改成功
- * @Date 2020/9/16 9:03
- */
- boolean updatePwd(String newPwd,String tname);
 
  /**
  * @Description 当老师班内学生都已毕业时，改变老师的状态
