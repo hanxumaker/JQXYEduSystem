@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -116,5 +117,11 @@ public class ManagerController {
     public String updateManagerPwd(String uname, String password) {
         boolean isUpdate = managerService.updateManagerPwd(uname, password);
         return "isUpdate";
+    }
+    @RequestMapping("/quit")
+    public String quit(HttpSession session){
+        session.removeAttribute("User");//把存入session的User清除
+        session.invalidate();//session中的内容较多时，采用此失效方法
+        return "login";
     }
 }

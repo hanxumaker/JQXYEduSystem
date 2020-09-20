@@ -25,7 +25,7 @@
             <li class="layui-nav-item">欢迎您${sessionScope.User.uname}
                 <img src="../../static/imgs/2.jpg" class="layui-nav-img">
             </li>
-            <li class="layui-nav-item"><a href="login">退出</a></li>
+            <li class="layui-nav-item"><a href="quit">退出</a></li>
         </ul>
     </div>
 
