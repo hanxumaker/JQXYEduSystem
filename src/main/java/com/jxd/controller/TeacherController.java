@@ -221,7 +221,7 @@ public class TeacherController {
         SchoolEvaluate schoolEvaluate = new SchoolEvaluate(sid,tname,finalScore,comment);
         boolean isAdd = schoolEvaluateService.addSchEva(schoolEvaluate);
         if(isAdd){
-            boolean isUpdate = studentService.editStuSta(sid,state+2,deptno);
+            boolean isUpdate = studentService.editStuSta(sid,state+2,deptno+1);
         }
         return "isUpdate";
     }
