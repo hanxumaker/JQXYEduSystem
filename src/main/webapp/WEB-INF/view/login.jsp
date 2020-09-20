@@ -24,7 +24,7 @@
         #div1 {
             border: #F0F0F0 solid;
             width: 400px;
-            margin: 200px 500px;
+            margin: 250px auto;
             background-color: #F0F0F0;
         }
 

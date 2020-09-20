@@ -784,4 +784,11 @@ public class AdminController {
         return jsonObject.toString();
     }
 
+
+  /*  @RequestMapping(value = "/getAllC")
+    @ResponseBody
+    public List<Course> getAllC() {
+        List<Course> list = courseService.getAllCourse();
+        return list;
+    }*/
 }

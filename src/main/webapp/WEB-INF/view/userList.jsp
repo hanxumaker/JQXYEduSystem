@@ -60,14 +60,14 @@
         table.render({
             elem: '#demo'
             , toolbar: '#toolbarDemo' //添加工具栏
-            , width: 1000
+            , width: 910
             , url: '/getAllUsers' //数据接口
             , page: true//开启分页
             , limit: 5//每页显示几条数据
             , limits: [3, 5, 10, 20]
             , cols: [[ //表头
                 {type: 'numbers', title: '序号', width: 200}
-                , {field: 'id', title: '用户编号', width: 150, sort: true}
+                , {field: 'id', title: '登录账号', width: 150, sort: true}
                 , {field: 'uname', title : '用户姓名',width: 200}
                 , {field: 'phoneNum', title: '用户电话', width: 200,hide:true}
                 , {field: 'role', title: '权限', width: 150,
