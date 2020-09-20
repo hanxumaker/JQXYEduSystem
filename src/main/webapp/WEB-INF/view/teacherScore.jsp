@@ -26,9 +26,11 @@
     <table id="demo" lay-filter="test"></table>
 </div>
 <script type="text/html" id="toolbarDemo">
+    <div align="right">
         <div class="layui-input-inline">
             <button class="layui-btn layui-btn-sm" lay-event="submit" id="sub">提交</button>
         </div>
+    </div>
     </div>
 </script>
 <script>
@@ -44,8 +46,7 @@
             , url: '/getTeacherScore' //数据接口
             , page: false
             , cols: [[ //表头
-                {type: 'checkbox'}
-                , {field: 'courseid', title: '课程编号', width: 165, sort: true, align: 'center',hide:'true'}
+                  {field: 'courseid', title: '课程编号', width: 165, sort: true, align: 'center',hide:'true'}
                 , {field: 'coursename', title: '课程', width: 165, sort: true, align: 'center'}
                 , {field: 'state', title: '状态', hide:'true', width: 100, sort: true, align: 'center'}
                 , {field: 'score', title: '分数', width: 160, align: 'center',edit:'text'}
@@ -80,57 +81,54 @@
                         dataBak.push(tableBak[i]);      //将之前的数组备份
                     }
                 }
-            switch(obj.event){
+            switch(obj.event) {
                 case 'submit':
-                    layer.msg('还有课程未进行评分，现在不能提交', {icon: 6});
+                    var count = 0;
+                    layer.msg('还有课程未进行评分，现在不能提交', {icon: 2});
                     for (var j = 0; j < dataBak.length; j++) {
-                        if(!dataBak[j].score) {
-                            layer.msg('还有课程未进行评分，现在不能提交', {icon: 6});
-                        }else{
-                            $("dataBak[j].score").blur(function () {
-                                if(dataBak[j].score < '0'){
-                                    layer.msg('分数不能为负数', {icon: 6});
-                                }else if(dataBak[j].score > '100'){
-                                    layer.msg('分数不能为大于100', {icon: 6});
-                                }
-                            })
+                        if (!dataBak[j].score) {
+                            layer.msg('还有课程未进行评分，现在不能提交', {icon: 2});
+                        } else {
+                            var score = parseInt(dataBak[j].score);
+                            if (score < 0 || score > 100) {
+                                layer.msg('分数不能为负数或者大于100', {icon: 2});
+                                count++;
+                            }
                         }
                     }
-                    if(dataBak.length == tableBak.length){
-                        layer.confirm("确定要提交吗？提交之后不可在次修改",function () {
-                            $.ajax({
-                                url:'gradeList',
-                                type:'post',
-                                data:{
-                                    stuScore:JSON.stringify(dataBak),
-                                    sid:'${sid}'
-                                },
-                                success:function (data) {
-                                    if(data){
-                                        layer.msg('提交成功');
-                                    }else{
-                                        layer.msg('提交失败');
-                                    }
-                                },
-                                error:function (data) {
-                                    layer.msg("执行失败");
+            if(dataBak.length == tableBak.length){
+                if(count > 0){
+                    layer.msg('分数不能为负数或者大于100', {icon: 2});
+                }else{
+                    layer.confirm("确定要提交吗？提交之后不可进行修改！",function () {
+                        $.ajax({
+                            url:'gradeList',
+                            type:'post',
+                            data:{
+                                stuScore:JSON.stringify(dataBak),
+                                sid:'${sid}'
+                            },
+                            success:function (data) {
+                                if(data){
+                                    layer.msg('提交成功', {icon: 6});
+                                    setTimeout('closeAdd()',1000)
+                                }else{
+                                    layer.msg('提交失败');
                                 }
-                            });
-                        })
-
-
-
-
-
-
-
-
-
-
-                    }
+                            },
+                            error:function (data) {
+                                layer.msg("执行失败");
+                            }
+                        });
+                    })
+                }
             }
-        });
+        }
     })
+    })
+    var closeAdd = function () {
+        parent.location.reload();//刷新父页面
+    }
 </script>
 </body>
 </html>

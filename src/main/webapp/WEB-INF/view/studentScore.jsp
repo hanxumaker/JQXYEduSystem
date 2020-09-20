@@ -18,6 +18,9 @@
         .layui-icon-ok{
             margin-top: 10px;
         }
+        .layui-table-tool-temp {
+            padding-right: 0px;
+        }
     </style>
 </head>
 <body>
@@ -32,6 +35,7 @@
         </div>
         <div class="layui-input-inline">
             <button class="layui-btn layui-btn-sm" lay-event="query">查询</button>
+            <button class="layui-btn layui-btn-sm" lay-event="selectStudent">详细信息</button>
         </div>
     </div>
 </script>
@@ -52,13 +56,14 @@
             elem: '#demo'
             ,toolbar: '#toolbarDemo'//添加工具栏
             ,height: 380
-            ,width:860
+            ,width:910
             ,url: '/getAllStudent' //数据接口
             ,page:true //开启分页
             ,limit:5 // 每页显示几条数据
             ,limits:[5,10,15,20]
             ,cols: [[ //表头
-                {field: 'sid', title: '学号', width:150, sort: true,hide:true,align:'center',}
+                 {type:'checkbox'}
+                ,{field: 'sid', title: '学号', width:150, sort: true,hide:true,align:'center',}
                 ,{type:'numbers',title:'学生序号',width:100,align:'center'}
                 ,{field: 'sname', title: '姓名', width:150,align:'center'}
                 ,{field: 'sex', title: '性别', width:150, sort:true,align:'center'}
@@ -84,13 +89,41 @@
                         }
                     });
                     break;
+                case 'selectStudent':
+                    //获取选中行
+                    var checkStatus = table.checkStatus('demo'); //demo为表格id
+                    //获取选中行的数据
+                    var data = checkStatus.data;
+                    if (data.length<1){
+                        layer.msg("请选择一条要查看的学生", {icon: 1})
+                    }else if (data.length>1){
+                        layer.msg("只能选择一位学生进行查看", {icon: 2})
+                    }else {
+                        //获取要查看的学生编号
+                        var sids = data[0].sid;
+                        //根据学生编号获取学生的详细信息
+                        layer.open({
+                            type:2,//弹出完整div;type:1弹出隐藏div
+                            title:'学生信息',
+                            content:'studentInByCid?sids=' + sids,
+                            shadeClose:true,//点击遮罩，关闭弹框
+                            area:['680px','300px'],
+                            end:function () {
+                                //刷新当前页
+                                $(".layui-laypage-btn").click();
+                            }
+                        });
+                    }
+                    break;
             }
         });
 
         //行监听事件
         table.on('tool(test)', function(obj){
             var data = obj.data;//得到这一行的值
+            var state = data.state;
             var sid = data.sid;
+            var deptno = data.deptno;
             switch(obj.event) {
                 case 'select':
                     layer.open({
@@ -98,37 +131,22 @@
                         title:'学生成绩',
                         content:'selectStudentScore?sid=' + sid,
                         shadeClose:true,//点击遮罩，关闭弹框
-                        area:['500px','440px']
+                        area:['500px','450px']
                     });
                     break;
                 case 'score':
                     if(data.state > 5){
-                        layer.msg(data.sname + "已经毕业，无法打分")
-                    }else{
+                        layer.msg(data.sname + "已经毕业，无法打分", {icon: 2})
+                    }else if(data.state < 5){
+                        layer.msg(data.sname + "已经评过分了，无法在进行打分", {icon: 2})
+                    }
+                    else{
                         layer.open({
                             type:2,//弹出完整div;type:1弹出隐藏div
                             title:'老师评分',
-                            content:'teacherScore?sid=' + sid,
+                            content:'teacherScore?state=' + state + "&sid=" + sid+ "&deptno=" + deptno,
                             shadeClose:true,//点击遮罩，关闭弹框
-                            area:['450px','450px']
-                        });
-                    }
-                    break;
-                case 'update':
-                    var id = data.id;
-                    if(data.state > 5){
-                        layer.msg(data.sname + "已经毕业，无法修改分数")
-                    }else {
-                        layer.open({
-                            type:2,//弹出完整div;type:1弹出隐藏div
-                            title:'分数编辑',
-                            content:'getStudentById?id=' + id,
-                            shadeClose:true,//点击遮罩，关闭弹框
-                            area:['380px','460px'],
-                            end:function () {
-                                //刷新当前页
-                                $(".layui-laypage-btn").click();
-                            }
+                            area:['350px','450px']
                         });
                     }
                     break;

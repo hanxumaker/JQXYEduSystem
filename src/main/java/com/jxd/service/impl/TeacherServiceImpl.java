@@ -64,4 +64,8 @@ public class TeacherServiceImpl implements ITeacherService {
     }
 
 
+    @Override
+    public boolean updateTeaStateByStu(String tname, Integer state) {
+        return teacherDao.updateTeaStateByStu(tname,state);
+    }
 }

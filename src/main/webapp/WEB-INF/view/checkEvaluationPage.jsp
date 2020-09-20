@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>评价页面</title>
+    <title>查看评价页面</title>
     <link href="../../static/layui/css/layui.css" rel="stylesheet">
     <script src="../../static/layui/layui.js"></script>
     <style>
@@ -136,11 +136,16 @@
         if (${wList[15].totalScore == null}) {
             $("#revise4").show();
         }
+        <c:forEach var="schoolEvaluate" items="${sList}" >
+        var cne = "${schoolEvaluate.coursename}";
+        $("#mtable tr:eq(2)").append("<td>" + cne + "</td>");
+        </c:forEach>
+
     })
 </script>
 <div id="form" style="display: none">
     <form>
-        <table class="layui-table">
+        <table id="mtable" class="layui-table">
             <thead>
             <tr>
                 <th colspan="10" style="text-align: center">学校评价</th>
@@ -153,12 +158,7 @@
                 <th rowspan="2">整体评价分数</th>
             </tr>
             <tr>
-                <th>HTML笔试</th>
-                <th>oracle笔试</th>
-                <th>JS笔试</th>
-                <th>java基础笔试</th>
-                <th>java高级笔试</th>
-                <th>L1面试</th>
+
             </tr>
             </thead>
             <tbody>
@@ -166,12 +166,9 @@
                 <td>学习评价</td>
                 <td>${sList.get(0).get("classname")}</td>
                 <td>${sList.get(0).get("tname")}</td>
-                <td>${sList.get(0).get("score")}</td>
-                <td>${sList.get(1).get("score")}</td>
-                <td>${sList.get(2).get("score")}</td>
-                <td>${sList.get(3).get("score")}</td>
-                <td>${sList.get(4).get("score")}</td>
-                <td>${sList.get(5).get("score")}</td>
+                <c:forEach  var="schoolEvaluation" items="${sList}">
+                    <td>${schoolEvaluation.score}</td>
+                </c:forEach>
                 <td>${sList.get(0).get("finalscore")}</td>
             </tr>
             <tr style="height: 150px">
@@ -804,15 +801,15 @@
                                     evaluatePerson: '${User.uname}',
                                     evaluateContent: $("#evaluateContent").val(),
                                     dateId: 3,
-                                    state:'${student.state}'//员工当前状态
+                                    state: '${student.state}'//员工当前状态
                                 }
                                 , success: function (data) {
-                                    layer.msg(data,{icon:6,time:3000},function () {
+                                    layer.msg(data, {icon: 6, time: 3000}, function () {
                                         location.href = "toEvaluationPage?sid=" + '${student.sid}'
                                     });
                                 },
                                 error: function (data) {
-                                    layer.msg(data,{icon:2,time:2000});
+                                    layer.msg(data, {icon: 2, time: 2000});
                                 }
                             });
                         });
@@ -882,15 +879,15 @@
                                     evaluatePerson: '${User.uname}',
                                     evaluateContent: $("#evaluateContent").val(),
                                     dateId: 4,
-                                    state:'${student.state}'//员工当前状态
+                                    state: '${student.state}'//员工当前状态
                                 }
                                 , success: function (data) {
-                                    layer.msg(data,{icon:6,time:3000},function () {
+                                    layer.msg(data, {icon: 6, time: 3000}, function () {
                                         location.href = "toEvaluationPage?sid=" + '${student.sid}'
                                     });
                                 },
                                 error: function (data) {
-                                    layer.msg(data,{icon:2,time:2000});
+                                    layer.msg(data, {icon: 2, time: 2000});
                                 }
                             });
                         });

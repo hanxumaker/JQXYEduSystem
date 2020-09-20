@@ -71,4 +71,12 @@ public interface ITeacherDao {
      * @return
      */
     boolean changeTea(Teacher teacher);
+
+    /**
+     * @Description 当老师班内学生都已毕业时，改变老师的状态
+     * @param tname
+     * @Return 是否修改成功
+     * @Date 2020/9/17 20:00
+     */
+    boolean updateTeaStateByStu(@Param("tname") String tname,@Param("state") Integer state);
 }

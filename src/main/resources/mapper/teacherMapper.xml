@@ -57,4 +57,8 @@
     <update id="changeTea">
         update teacher set state = 1,cid = null where cid = #{cid}
     </update>
+    <!-- boolean updateTeaStateByStu(String tname,Integer state);-->
+    <update id="updateTeaStateByStu">
+        update teacher set state=#{state} where tname=#{tname}
+    </update>
 </mapper>

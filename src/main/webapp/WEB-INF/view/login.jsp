@@ -18,7 +18,6 @@
             background-repeat: no-repeat;
             background-size: 100%;
             background-attachment: fixed;
-           -webkit-overflow-scrolling: unset;
         }
 
         #div1 {
@@ -66,7 +65,7 @@
 <!--action表示当前表单提交到哪里去
 action的值对应地是url-pattern-->
 <div class="layui-row layui-col-space10" id="div1">
-    <form class="layui-form" action="login" method="get">
+    <form class="layui-form" action="login" method="post">
         <div id="div2">金桥学员追踪系统</div>
         <div class="layui-form-item" id="div3">
             <label class="layui-form-label">

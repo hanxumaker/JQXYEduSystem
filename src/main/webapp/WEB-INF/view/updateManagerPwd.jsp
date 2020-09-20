@@ -11,20 +11,30 @@
     <title>修改密码页面</title>
     <link href="../../static/layui/css/layui.css" rel="stylesheet">
     <script src="../../static/layui/layui.js"></script>
+    <style>
+        .layui-form-label.layui-required:after {
+            content: "*";
+            color: red;
+            position: absolute;
+            top: 5px;
+            left: 15px;
+        }
+    </style>
 </head>
 <body>
-<div style="margin: 250px 100px 0px 400px">
+<div style="margin: 200px 100px 0px 400px">
     <div class="layui-form">
         <div class="layui-form-item">
             <label class="layui-form-label">用户名:</label>
             <div class="layui-input-inline">
-                <input type="text" name="uname" id="uname" readonly value="${sessionScope.User.uname}" class="layui-input">
+                <input type="text" name="uname" id="uname" readonly value="${sessionScope.User.uname}"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">旧密码:</label>
             <div class="layui-input-inline">
-                <input type="text" value="${sessionScope.User.password}" class="layui-input">
+                <input type="text" value="${sessionScope.User.password}" class="layui-input" readonly>
             </div>
         </div>
         <div class="layui-form-item">
@@ -36,37 +46,42 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <input type="submit" class="layui-btn" lay-submit lay-filter="formDemo" id="sub"></input>
+                <input type="submit" class="layui-btn" lay-submit lay-filter="formDemo" id="sub">
             </div>
         </div>
     </div>
 </div>
 <script>
-    layui.use(['form','layer'], function () {
-         $ = layui.jquery;
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
         var layer = layui.layer;
         $("#sub").click(function () {
+            if ($("#password").val() == "") {
+                layer.msg("新密码不能为空", {icon: 2, time: 1000});
+                return false;
+            }
             $.ajax({
-                url:"updateManagerPwd",
-                type:"post",
-                data:{
-                    uname:'${sessionScope.User.uname}',
-                    password:$("#password").val()
+                url: "updateManagerPwd",
+                type: "post",
+                data: {
+                    uname: '${sessionScope.User.uname}',
+                    password: $("#password").val()
                 },
-                success:function (data) {
-                    if(data){
-                        layer.msg("修改成功,密码已修改，您需要退出重新登录",{icon:6,time:2000})
-                    }else {
+                success: function (data) {
+                    if (data) {
+                        layer.msg("修改成功,您需要重新登录", {icon: 6, time: 2000}, function () {
+                            parent.location.reload();
+                        });
+                    } else {
                         layer.msg("修改失败")
                     }
                 },
-                error:function (data) {
+                error: function (data) {
                     layer.msg("执行失败")
                 }
             })
         })
     })
 </script>
-
 </body>
 </html>

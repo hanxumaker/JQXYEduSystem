@@ -35,7 +35,6 @@
             <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button class="layui-btn" lay-submit="" lay-filter="formDemo" id="addEvaluate">提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
         </div>
@@ -47,42 +46,41 @@
             $ = layui.$;
             //点击提交按钮
             $("#addEvaluate").click(function () {
-                layer.confirm('确定要提交吗?提交之后不可在进行修改！',function(){
-                $.ajax({
-                    url:"addEvaluate",
-                    type:"post",
-                    data:{
-                        finalScore:$("#finalScore").val(),
-                        comment:$("#comment").val(),
-                        sid:'${sid}'
-                    },
-                    dataType:"text",//默认值为text
-                    success:function (data) {
-                        if(data){
-                            layer.msg('新增成功');
-                            setTimeout('closeAdd()',1000)
-                        }else{
-                            layer.msg('新增失败');
-                            setTimeout('closeAdd()',1000)
-                        }
-                    },
-                    error:function (data) {
-                        layer.msg("执行失败");
-                        setTimeout('closeAdd()',1000)
-                    }
-                })
-            });
-            })
-            ///监听提交
-            form.on('submit(formDemo)', function(data){
-                layer.msg(JSON.stringify(data.field));
-                //return false;
+                if($("#comment").val() == ""){
+                    layer.msg('综合评价不能为空',{icon: 3})
+                }else{
+                    layer.confirm('确定要提交吗?提交之后不可在进行修改！',function(){
+                        $.ajax({
+                            url:"addEvaluate",
+                            type:"post",
+                            data:{
+                                finalScore:$("#finalScore").val(),
+                                comment:$("#comment").val(),
+                                sid:'${sid}'
+                            },
+                            dataType:"text",//默认值为text
+                            success:function (data) {
+                                if(data){
+                                    layer.msg('提交成功',{icon: 6});
+                                    setTimeout('closeAdd()',1000)
+                                }else{
+                                    layer.msg('提交失败');
+                                    setTimeout('closeAdd()',1000)
+                                }
+                            },
+                            error:function (data) {
+                                layer.msg("执行失败");
+                                setTimeout('closeAdd()',1000)
+                            }
+                        })
+                    })
+                }
             });
         });
         var closeAdd = function () {
             parent.location.reload();//刷新父页面
         }
-    </script>
+</script>
 </body>
 </html>
 
