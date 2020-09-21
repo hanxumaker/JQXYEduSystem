@@ -22,7 +22,7 @@
     </style>
 </head>
 <body>
-<div style="margin: 200px 100px 0px 400px">
+<div style="margin: 200px 100px 0px 450px">
     <div class="layui-form">
         <div class="layui-form-item">
             <label class="layui-form-label">用户名:</label>
@@ -45,6 +45,13 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">确认密码:</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password1" id="password1" required lay-verify="required"
+                       placeholder="请确认新密码" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-input-block">
                 <input type="submit" class="layui-btn" lay-submit lay-filter="formDemo" id="sub">
             </div>
@@ -55,9 +62,16 @@
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         var layer = layui.layer;
+        $("#password1").blur(function () {
+            if($("#password1").val() != $("#password").val()){
+                layer.msg("两次密码输入不一致,请重新输入");
+                $("#password1").val("");
+                $("#password").val("");
+            }
+        });
         $("#sub").click(function () {
             if ($("#password").val() == "") {
-                layer.msg("新密码不能为空", {icon: 2, time: 1000});
+                layer.msg("新密码不能为空", {icon: 2, time: 2000});
                 return false;
             }
             $.ajax({
@@ -70,7 +84,7 @@
                 success: function (data) {
                     if (data) {
                         layer.msg("修改成功,您需要重新登录", {icon: 6, time: 2000}, function () {
-                            parent.location.reload();
+                            top.location.href="login2";/* 在顶层页面打开url(跳出框架)*/
                         });
                     } else {
                         layer.msg("修改失败")

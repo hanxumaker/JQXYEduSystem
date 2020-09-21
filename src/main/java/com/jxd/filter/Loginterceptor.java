@@ -18,7 +18,7 @@ public class Loginterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
         String uri = request.getRequestURI();
         //URL:login.jsp是公开的;这个demo是除了login.jsp是可以公开访问的，其它的URL都进行拦截控制
-        if (uri.indexOf("login") >= 0) {
+        if (uri.indexOf("checkUser") >= 0) {
             return true;
         }
         Object sessionObj = session.getAttribute("User");

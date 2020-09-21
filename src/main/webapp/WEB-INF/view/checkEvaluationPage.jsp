@@ -136,6 +136,7 @@
         if (${wList[15].totalScore == null}) {
             $("#revise4").show();
         }
+        /*将学校评价中的课程名循环进该行中*/
         <c:forEach var="schoolEvaluate" items="${sList}" >
         var cne = "${schoolEvaluate.coursename}";
         $("#mtable tr:eq(2)").append("<td>" + cne + "</td>");
@@ -213,7 +214,7 @@
                 <td>工作评价</td>
                 <td>${dname}</td>
                 <td>员工</td>
-                <td>${User.uname}</td>
+                <td>${sessionScope.User.uname}</td>
                 <td>
                     <c:if test="${wList[0].evaluateScore == null}">
                         <input type="text" class="layui-input" id="score0" required>
@@ -309,7 +310,7 @@
                 <td>工作评价</td>
                 <td>${dname}</td>
                 <td>员工</td>
-                <td>${User.uname}</td>
+                <td>${sessionScope.User.uname}</td>
                 <td>
                     <c:if test="${wList[5].evaluateScore == null}">
                         <input type="text" class="layui-input" id="score0" required>
@@ -374,7 +375,7 @@
         </table>
     </form>
 </div>
-<div id="form3" style="display: none" ;>
+<div id="form3" style="display: none";>
     <form action="">
         <table class="layui-table">
             <thead>
@@ -405,7 +406,7 @@
                 <td>工作评价</td>
                 <td>${dname}</td>
                 <td>员工</td>
-                <td>${User.uname}</td>
+                <td>${sessionScope.User.uname}</td>
                 <td>
                     <c:if test="${wList[10].evaluateScore == null}">
                         <input type="text" class="layui-input" id="score0" required>
@@ -501,7 +502,7 @@
                 <td>工作评价</td>
                 <td>${dname}</td>
                 <td>员工</td>
-                <td>${User.uname}</td>
+                <td>${sessionScope.User.uname}</td>
                 <td>
                     <c:if test="${wList[15].evaluateScore == null}">
                         <input type="text" class="layui-input" id="score0" required>
@@ -642,14 +643,14 @@
                                     score4: $("#score4").val(),
                                     totalScore: $("#totalScore").val(),
                                     sid: '${student.sid}',
-                                    evaluatePerson: '${User.uname}',
+                                    evaluatePerson: '${sessionScope.User.uname}',
                                     evaluateContent: $("#evaluateContent").val(),
                                     dateId: 1,
                                     state: '${student.state}'//员工当前状态
                                 }
                                 , success: function (data) {
                                     layer.msg(data, {icon: 6, time: 3000}, function () {
-                                        location.href = "toEvaluationPage?sid=" + '${student.sid}'
+                                        location.href = "toCheckEvaluation?sid=" + '${student.sid}'
                                     });
                                 },
                                 error: function (data) {
@@ -672,7 +673,7 @@
                 content: $("#form2"),
                 success: function () {
                     $("#score0").blur(function () {
-                        var reg = /^[0-5]$/;
+                        var reg = /^[0-5]$/;//正则表达式,0-5之间的数字
                         if ($("#score0").val() == "" || !reg.test($("#score0").val())) {
                             layer.msg("5分制，成绩必须为0-5之间的数字且不能为空", {icon: 2, time: 2000});
                         }
@@ -720,14 +721,14 @@
                                     score4: $("#score4").val(),
                                     totalScore: $("#totalScore").val(),
                                     sid: '${student.sid}',
-                                    evaluatePerson: '${User.uname}',
+                                    evaluatePerson: '${sessionScope.User.uname}',
                                     evaluateContent: $("#evaluateContent").val(),
                                     dateId: 2,
                                     state: '${student.state}'//员工当前状态
                                 }
                                 , success: function (data) {
                                     layer.msg(data, {icon: 6, time: 3000}, function () {
-                                        location.href = "toEvaluationPage?sid=" + '${student.sid}'
+                                        location.href = "toCheckEvaluation?sid=" + '${student.sid}'
                                     });
                                 },
                                 error: function (data) {
@@ -798,14 +799,14 @@
                                     score4: $("#score4").val(),
                                     totalScore: $("#totalScore").val(),
                                     sid: '${student.sid}',
-                                    evaluatePerson: '${User.uname}',
+                                    evaluatePerson: '${sessionScope.User.uname}',
                                     evaluateContent: $("#evaluateContent").val(),
                                     dateId: 3,
                                     state: '${student.state}'//员工当前状态
                                 }
                                 , success: function (data) {
                                     layer.msg(data, {icon: 6, time: 3000}, function () {
-                                        location.href = "toEvaluationPage?sid=" + '${student.sid}'
+                                        location.href = "toCheckEvaluation?sid=" + '${student.sid}'
                                     });
                                 },
                                 error: function (data) {
@@ -876,14 +877,14 @@
                                     score4: $("#score4").val(),
                                     totalScore: $("#totalScore").val(),
                                     sid: '${student.sid}',
-                                    evaluatePerson: '${User.uname}',
+                                    evaluatePerson: '${sessionScope.User.uname}',
                                     evaluateContent: $("#evaluateContent").val(),
                                     dateId: 4,
                                     state: '${student.state}'//员工当前状态
                                 }
                                 , success: function (data) {
                                     layer.msg(data, {icon: 6, time: 3000}, function () {
-                                        location.href = "toEvaluationPage?sid=" + '${student.sid}'
+                                        location.href = "toCheckEvaluation?sid=" + '${student.sid}'
                                     });
                                 },
                                 error: function (data) {

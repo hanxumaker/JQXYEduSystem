@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,6 @@ import java.util.Map;
  * @Date 2020/9/11 8:04
  */
 @Controller
-@SessionAttributes({"User"})
 public class ManagerController {
     @Autowired
     IManagerService managerService;
@@ -33,8 +33,9 @@ public class ManagerController {
     IStudentService studentService;
 
     @RequestMapping("/toGetStudentByDeptno")
-    /*@ModelAttribute("User") User user 在控制器中获取另一个控制器存入session的值*/
-    public String toGetStudentByDeptno(@ModelAttribute("User") User user, Model model) {
+    public String toGetStudentByDeptno(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("User");//从session中获取user1
         Manager manager = managerService.getManagerByMname(user.getUname());
         model.addAttribute("deptno", manager.getDeptno());//将部门id存入model中
         return "studentInDept";
@@ -58,7 +59,9 @@ public class ManagerController {
     }
 
     @RequestMapping("/toCheckEvaluation")
-    public String toEvaluationPage(@ModelAttribute("User") User user, Integer sid, Model model) {
+    public String toEvaluationPage(HttpServletRequest request, Integer sid, Model model) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("User");
         //将查找到的员工存入model
         Student student = studentService.getStudentBySid(sid);
         model.addAttribute("student", student);
@@ -74,6 +77,7 @@ public class ManagerController {
         model.addAttribute("sList", list);
         return "checkEvaluationPage";
     }
+
     @RequestMapping(value = "/addWorkEvaluate", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String addWorkEvaluate(Integer state, Integer sid, Integer dateId, Integer score0, Integer score1, Integer score2,
@@ -92,6 +96,7 @@ public class ManagerController {
         boolean isAdd = managerService.addWorkEvaluate(list);
         boolean isUpdate;
         if (isAdd) {
+            /*判断员工的状态并修改*/
             if (state == 9) {
                 isUpdate = managerService.editStudentState(sid, state);
             } else {
@@ -118,10 +123,11 @@ public class ManagerController {
         boolean isUpdate = managerService.updateManagerPwd(uname, password);
         return "isUpdate";
     }
+
     @RequestMapping("/quit")
-    public String quit(HttpSession session){
+    public String quit(HttpSession session) {
         session.removeAttribute("User");//把存入session的User清除
-        session.invalidate();//session中的内容较多时，采用此失效方法
+        session.invalidate();//session中的内容较多时，采用此方法，将session设置为失效
         return "login";
     }
 }
