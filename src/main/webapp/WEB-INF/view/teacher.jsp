@@ -20,9 +20,8 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">欢迎您${sessionScope.User.uname}
                 <img src="../../static/imgs/2.jpg" class="layui-nav-img">
-
             </li>
-            <li class="layui-nav-item"><a href="login">退出</a></li>
+            <li class="layui-nav-item"><a href="quit">退出</a></li>
         </ul>
     </div>
 
@@ -30,7 +29,7 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
+                <li class="layui-nav-item layui-nav-itemed layui-this">
                     <a href="studentScore" target="mFrame">学生成绩</a>
                 </li>
                 <li class="layui-nav-item layui-nav-itemed">
@@ -45,7 +44,7 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <div style="padding: 15px;"><iframe class="layadmin-iframe"
+        <div style="padding: 15px;"><iframe class="layadmin-iframe" frameborder="0"
                                             style="width: 100%; height:90%;"
                                             name="mFrame" scrolling="false" src="studentScore"></iframe></div>
     </div>

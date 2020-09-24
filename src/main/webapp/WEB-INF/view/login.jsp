@@ -18,12 +18,13 @@
             background-repeat: no-repeat;
             background-size: 100%;
             background-attachment: fixed;
+            overflow:hidden;
         }
 
         #div1 {
             border: #F0F0F0 solid;
             width: 400px;
-            margin: 250px auto;
+            margin: 200px auto;
             background-color: #F0F0F0;
         }
 

@@ -61,5 +61,4 @@
             <bean class="com.jxd.filter.Loginterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
-
 </beans>

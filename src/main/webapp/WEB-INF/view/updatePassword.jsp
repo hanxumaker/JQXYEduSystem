@@ -21,7 +21,7 @@
     </style>
 </head>
 <body>
-<div style="margin-top: 150px">
+<div style="margin-top: 100px">
 <div style="display: flex;justify-content: center">
     <div class="layui-form">
         <div class="layui-form-item">
@@ -43,6 +43,12 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label layui-required">确认密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="newPwd1" id="newPwd1" placeholder="请输入密码" required lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit="" lay-filter="formDemo" id="update">提交</button>
             </div>
@@ -57,26 +63,46 @@
         var layer = layui.layer;
         form.render();
         $ = layui.jquery;
+
+        //输入旧密码进行判断是否和原密码一致
+        $("#oldPwd").blur(function () {
+            var tmp = "${sessionScope.User.password}";
+            if(("#oldPwd").val() != tmp){
+                layer.msg('旧密码与登录密码不一致',{icon:2});
+            }
+        });
+
+        //确认密码失去焦点
+        $("#newPwd1").blur(function () {
+            if($("#newPwd").val() != $("#newPwd1").val()){
+                layer.msg('两次密码输入不一致',{icon:2});
+            }
+        })
         //点击提交按钮
         $("#update").click(function (){
-            if($("#oldPwd").val() != "" && $("#newPwd").val() != ""){
-                $.ajax({
-                    url:'updatePwd',
-                    type:'post',
-                    data:{
-                        newPwd:$("#newPwd").val()
-                    },
-                    success:function (data) {
-                        if(data){
-                            layer.msg('修改成功,请重新登录',{icon:6});
-                        }else{
-                            layer.msg('修改失败');
+            if($("#oldPwd").val() != "" && $("#newPwd").val() != "" && $("#newPwd1").val() != ""){
+                if($("#newPwd").val() == $("#newPwd1").val()){
+                    $.ajax({
+                        url:'updatePwd',
+                        type:'post',
+                        data:{
+                            newPwd:$("#newPwd").val()
+                        },
+                        success:function (data) {
+                            if(data){
+                                layer.msg('修改成功,请重新登录',{icon:6});
+                                top.location.href = "quit";
+                            }else{
+                                layer.msg('修改失败');
+                            }
+                        },
+                        error:function (data) {
+                            layer.msg("执行失败");
                         }
-                    },
-                    error:function (data) {
-                        layer.msg("执行失败");
-                    }
-                })
+                    })
+                }else{
+                    layer.msg('两次密码输入不一致',{icon:2});
+                }
             }
             })
         })

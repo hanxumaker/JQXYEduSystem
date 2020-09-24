@@ -41,7 +41,7 @@
 <script type="text/html" id="barDemo">
     <div class="layui-input-inline">
         <button class="layui-btn layui-btn-sm" lay-event="evaluate">评价</button>
-        <button class="layui-btn layui-btn-sm" lay-event="select">查看</button>
+        <button class="layui-btn  layui-btn-sm layui-btn-warm" lay-event="select">查看</button>
     </div>
 </script>
 <script>
@@ -112,6 +112,7 @@
                             curr:1//从第一页开始取数据
                         }
                     });
+                    var filter = $("#filter").val(filter);
                     break;
             }
         });

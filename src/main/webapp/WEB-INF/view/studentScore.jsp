@@ -42,7 +42,7 @@
 <script type="text/html" id="barDemo">
     <div class="layui-input-inline">
         <button class="layui-btn layui-btn-sm" lay-event="score" id="score">评分</button>
-        <button class="layui-btn layui-btn-sm" lay-event="select">查看</button>
+        <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="select">查看</button>
     </div>
 </script>
 <script>
@@ -88,6 +88,7 @@
                             curr:1//从第一页开始取数据
                         }
                     });
+                    var filter = $("#filter").val(filter);
                     break;
                 case 'selectStudent':
                     //获取选中行
@@ -131,7 +132,7 @@
                         title:'学生成绩',
                         content:'selectStudentScore?sid=' + sid,
                         shadeClose:true,//点击遮罩，关闭弹框
-                        area:['500px','450px']
+                        area:['360px','400px']
                     });
                     break;
                 case 'score':
@@ -146,7 +147,7 @@
                             title:'老师评分',
                             content:'teacherScore?state=' + state + "&sid=" + sid+ "&deptno=" + deptno,
                             shadeClose:true,//点击遮罩，关闭弹框
-                            area:['350px','450px']
+                            area:['350px','400px']
                         });
                     }
                     break;

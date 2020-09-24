@@ -51,18 +51,6 @@
                 , {field: 'state', title: '状态', hide:'true', width: 100, sort: true, align: 'center'}
                 , {field: 'score', title: '分数', width: 160, align: 'center',edit:'text'}
             ]],
-            /*//根据课程状态(已经打过分)将其设置为不可编辑的，即打过分的课程不能在打分
-            done:function (res, curr, count) {
-                let tableView = this.elem.next();// 当前表格渲染之后的视图
-                layui.each(res.data, function(i, item) { //遍历整个表格数据
-                    if (item.state = 0) {
-                        tableView.find('tr[data-index=' + i + ']').find('td').data('edit', false);
-                        tableView.find('tr[data-index=' + i + ']').find('td').click(function () {
-                            layer.msg("该课现在已经打过分了，不能进行评分")
-                        })
-                    }
-                })
-            }*/
         });
         //监听单元格编辑
         table.on('edit(tableDemo)', function(obj){

@@ -33,9 +33,6 @@
         //第一个实例
         table.render({
             elem: '#demo'
-            , toolbar: '#toolbarDemo'//添加工具栏
-            , height: 385
-            , width: 350
             , url: '/getStudentScore' //数据接口
             , page: false
             , cols: [[ //表头
