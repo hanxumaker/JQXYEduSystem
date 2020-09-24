@@ -10,7 +10,7 @@
 <head>
     <title>经理页面</title>
     <link href="../../static/layui/css/layui.css" rel="stylesheet">
-    <script src="../../static/layui/layui.js"></script>
+    <script src="，../../static/layui/layui.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">

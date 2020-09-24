@@ -22,11 +22,18 @@ public class LoginController {
     @Autowired
     IUserService userService;
 
+    //返回登录页面
     @RequestMapping("/login2")
     public String login2() {
         return "login";
     }
 
+    /**
+     * 接收用户名和密码，判断该用户是否存在
+     * @param user 前台传入的用户名和密码，封装成用户对象
+     * @param request
+     * @return 登录成功返回相对应的内容
+     */
     @RequestMapping(value = "/checkUser", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String checkUser(User user, HttpServletRequest request) {
@@ -48,16 +55,28 @@ public class LoginController {
         }
     }
 
+    /**
+     * 返回管理员页面
+     * @return 管理员页面
+     */
     @RequestMapping("/toAdmin")
     public String toAdmin() {
         return "admin";
     }
 
+    /**
+     * 返回老师页面
+     * @return 老师页面
+     */
     @RequestMapping("/toTeacher")
     public String toTeacher() {
         return "teacher";
     }
 
+    /**
+     * 返回经理页面
+     * @return 经理页面
+     */
     @RequestMapping("/toManager")
     public String toManager() {
         return "manager";
