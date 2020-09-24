@@ -48,7 +48,7 @@ public interface IManagerService {
      * 删除一个经理
      *
      * @param manager
-     * @return 返回是否添加成功
+     * @return 返回是否删除成功
      */
     boolean delTeacher(Manager manager);
 
@@ -67,13 +67,6 @@ public interface IManagerService {
      * @return 返回该经理
      */
     Manager getManagerByMname(String uname);
-
-    /**
-     * 查询出所有正在使用(状态为1)的评分项
-     *
-     * @return 返回查到的评分项
-     */
-    List<Analytes> getAnalytes(Integer state);
 
     /**
      * 根据部门编号查找对应的部门名称
@@ -109,16 +102,27 @@ public interface IManagerService {
 
     /**
      * 根据员工id修改员工的状态
-      * @param sid 员工id
+     *
+     * @param sid   员工id
      * @param state 要修改成的状态
      * @return 是否修改成功
      */
-    boolean editStudentState(Integer sid,Integer state);
+    boolean editStudentState(Integer sid, Integer state);
+
     /**
      * 根据经理名字修改经理密码
-     * @param uname 经理的登录的用户名
+     *
+     * @param uname    经理的登录的用户名
      * @param password 新密码
      * @return 是否修改成功
      */
-    boolean updateManagerPwd( String uname,String password);
+    boolean updateManagerPwd(String uname, String password);
+
+    /**
+     * 查找出目前正在使用(状态为1)的评分项
+     *
+     * @param state 查找条件，状态为1
+     * @return 查找的评分项的列表
+     */
+    List<Analytes> getAnalytesByState(Integer state);
 }

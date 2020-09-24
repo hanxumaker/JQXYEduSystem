@@ -54,12 +54,6 @@ public class ManagerServiceImpl implements IManagerService {
     public Manager getManagerByMname(String uname) {
         return managerDao.getManagerByMname(uname);
     }
-
-    @Override
-    public List<Analytes> getAnalytes(Integer state) {
-        return managerDao.getAnalytes(state);
-    }
-
     @Override
     public Dept getDnameByDeptno(Integer deptno) {
         return managerDao.getDnameByDeptno(deptno);
@@ -88,5 +82,10 @@ public class ManagerServiceImpl implements IManagerService {
     @Override
     public boolean updateManagerPwd(String uname, String password) {
         return managerDao.updateManagerPwd(uname,password);
+    }
+
+    @Override
+    public List<Analytes> getAnalytesByState(Integer state) {
+        return managerDao.getAnalytesByState(state);
     }
 }

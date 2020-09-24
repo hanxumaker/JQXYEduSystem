@@ -44,7 +44,7 @@ public interface IManagerDao {
      * 删除一个老师
      *
      * @param manager
-     * @return 返回是否添加成功
+     * @return 返回是否删除成功
      */
     boolean delTeacher(Manager manager);
 
@@ -64,14 +64,6 @@ public interface IManagerDao {
      * @return 返回该经理
      */
     Manager getManagerByMname(String uname);
-
-    /**
-     * 查询出所有正在使用(状态为1)的评分项
-     *
-     * @return 返回查到的评分项
-     */
-    List<Analytes> getAnalytes(Integer state);
-
     /**
      * 根据部门编号查找对应的部门名称
      *
@@ -120,4 +112,10 @@ public interface IManagerDao {
      * @return 是否修改成功
      */
     boolean updateManagerPwd(@Param("uname") String uname,@Param("password") String password);
+    /**
+     * 查找出目前正在使用(状态为1)的评分项
+     * @param state 查找条件，状态为1
+     * @return 查找的评分项的列表
+     */
+    List<Analytes> getAnalytesByState(Integer state);
 }

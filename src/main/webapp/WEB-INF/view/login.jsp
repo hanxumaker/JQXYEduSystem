@@ -19,6 +19,7 @@
             background-size: 100%;
             background-attachment: fixed;
             overflow:hidden;
+             /*取消滚动条*/
         }
 
         #div1 {
@@ -66,7 +67,7 @@
 <!--action表示当前表单提交到哪里去
 action的值对应地是url-pattern-->
 <div class="layui-row layui-col-space10" id="div1">
-    <form class="layui-form" action="login" method="post">
+    <div class="layui-form">
         <div id="div2">金桥学员追踪系统</div>
         <div class="layui-form-item" id="div3">
             <label class="layui-form-label">
@@ -89,28 +90,47 @@ action的值对应地是url-pattern-->
         </div>
 
         <div class="layui-form-item" align="center">
-            <button class="layui-btn layui-btn-radius layui-btn-normal  layui-btn-sm" type="submit" id="sub">登录</button>
+            <button class="layui-btn layui-btn-radius layui-btn-normal  layui-btn-sm" type="button" id="sub">登录</button>
         </div>
-        <div id="msg" style="color: red">${msg}</div>
-    </form>
+    </div>
 </div>
 <script>
-     layui.use('form', function () {
-         var form = layui.form;
-         var layer = layui.layer;
-         $ = layui.jquery;
-         $("#sub").click(function () {
-             if ($("#uname").val() == "" || $("#password").val() == "") {
-                 layer.msg("信息填写不完整,无法登录",{offset:'100px',icon:2});
-             }
-         });
-         $("#uname").focus(function () {
-             $("#msg").html("");
-         });
-         $("#password").focus(function () {
-             $("#msg").html("");
-         })
-     });
+    layui.use(['form', 'layer'], function () {
+        var layer = layui.layer;
+        $ = layui.jquery;
+        $("#sub").click(function () {
+            if ($("#uname").val() == "" || $("#password").val() == "") {
+                layer.msg("信息填写不完整,无法登录", {offset: '100px', icon: 2,time:2000 });//offset:只定义top坐标，水平保持居中
+            } else {
+                $.ajax({
+                    url: "checkUser",
+                    type: "post",
+                    data: {
+                        uname: $("#uname").val(),
+                        password: $("#password").val()
+                    },
+                    success: function (data) {
+                        if (data === "admin") {
+                            location.href = "toAdmin";
+                        } else if (data === "teacher") {
+                            location.href = "toTeacher";
+                        } else if (data === "manager") {
+                            location.href = "toManager";
+                        } else {
+                            layer.msg(data,{icon:2,time:2000},function () {
+                                $("#uname").val("");
+                                $("#password").val("");
+                            });
+
+                        }
+                    },
+                    error: function (data) {
+                        layer.msg("执行失败")
+                    }
+                })
+            }
+        });
+    })
 </script>
 </body>
 </html>

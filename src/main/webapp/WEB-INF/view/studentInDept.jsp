@@ -21,14 +21,15 @@
             top: 50%;
             transform: translateY(-50%)
         }
-        .layui-table-tool-temp{
-            padding-right:0px;
+
+        .layui-table-tool-temp {
+            padding-right: 0px;
         }
     </style>
 </head>
 <body>
 <div align="center">
-    <span style="font-size: 25px;font-family: 华文楷体;font-weight: bold;">金桥员工列表</span>
+    <span style="font-size: 28px;font-family: 华文楷体;font-weight: bold;">金桥员工列表</span>
 </div>
 <div align="center">
     <table id="demo" lay-filter="test"></table>
@@ -43,9 +44,10 @@
 </script>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="check">查看</a>
+    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="evaluate">评价</a>
 </script>
 <script>
-    layui.use(['table', "layer","form"], function () {
+    layui.use(['table', "layer", "form"], function () {
         var table = layui.table;
         var layer = layui.layer;
         var $ = layui.jquery;
@@ -101,6 +103,7 @@
                             curr: 1
                         }
                     });
+                    var sname = $("#sname").val(sname);//将模糊查询时输入的内容保留在文本框里
                     break;
             }
         });
@@ -110,6 +113,9 @@
                 , layEvent = obj.event; //获得 lay-event 对应的值
             if (layEvent === 'check') {
                 location.href = "toCheckEvaluation?sid=" + data.sid;
+            }
+            if(layEvent === 'evaluate'){
+                location.href = "toDoWorkEvaluation?sid=" + data.sid;
             }
         });
     });
